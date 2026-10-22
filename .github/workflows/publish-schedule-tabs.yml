@@ -1,0 +1,57 @@
+name: Publicar abas da programação
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-schedule-tabs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Atualizar index e cache
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index=Path('index.html')
+          text=index.read_text(encoding='utf-8')
+          marker='<script src="project-audience-v1.js?v=33"></script>'
+          addition=marker+'\n<script src="schedule-tabs-v1.js?v=36"></script>'
+          if 'schedule-tabs-v1.js' not in text:
+              if marker not in text:
+                  raise SystemExit('Marcador de scripts não encontrado no index.html')
+              text=text.replace(marker, addition, 1)
+          index.write_text(text, encoding='utf-8')
+
+          sw_path=Path('sw.js')
+          sw=sw_path.read_text(encoding='utf-8')
+          sw=re.sub(r"const CACHE='mostra-cultural-2026-v\d+';", "const CACHE='mostra-cultural-2026-v36';", sw, count=1)
+          if "'./schedule-tabs-v1.js?v=36'" not in sw:
+              sw=sw.replace("'./project-audience-v1.js?v=33'", "'./project-audience-v1.js?v=33','./schedule-tabs-v1.js?v=36'", 1)
+          if "u.pathname.endsWith('/schedule-tabs-v1.js')" not in sw:
+              sw=sw.replace("u.pathname.endsWith('/project-audience-v1.js')", "u.pathname.endsWith('/project-audience-v1.js')||u.pathname.endsWith('/schedule-tabs-v1.js')", 1)
+          sw_path.write_text(sw, encoding='utf-8')
+          PY
+
+      - name: Publicar arquivos
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          if ! git diff --cached --quiet; then
+            git commit -m "Publica programação em abas [skip ci]"
+            git push
+          fi
