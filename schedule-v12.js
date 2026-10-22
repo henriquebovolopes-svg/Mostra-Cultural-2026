@@ -1,5 +1,6 @@
 const BLOCK_1='10h00–11h30';
 const BLOCK_2='11h30–13h00';
+const featuredCss=document.createElement('link');featuredCss.rel='stylesheet';featuredCss.href='featured-carousel-v1.css?v=24';document.head.appendChild(featuredCss);
 let workReturnScreen='explore';
 function isPermanent(r){const h=(r.horario||'').replace('–','-');return norm(r.grupo)==='exposicao permanente'||h==='10h00-13h00'}
 function isBlock(r){return r.horario===BLOCK_1||r.horario===BLOCK_2}
@@ -46,97 +47,45 @@ renderSchedule=function(){
 };
 renderNow=function(){const d=new Date(),mins=d.getHours()*60+d.getMinutes();let title='Seu guia de visitação',text='No dia 14/11, esta área mostrará automaticamente qual bloco está acontecendo naquele momento.';if(d.getFullYear()===2026&&d.getMonth()+1===11&&d.getDate()===14){if(mins<600){title='A Mostra começa às 10h';text='Use a busca para encontrar um estudante ou explore os projetos e trabalhos.'}else if(mins<690){title='Bloco 1 acontecendo agora';text='Apresentações das 10h00 às 11h30. As exposições permanentes também estão abertas até 13h.'}else if(mins<780){title='Bloco 2 acontecendo agora';text='Apresentações das 11h30 às 13h00. As exposições permanentes seguem abertas até o encerramento.'}else{title='Mostra encerrada';text='A programação de apresentações terminou às 13h.'}}const card=$('nowCard');if(card){card.querySelector('h2').textContent=title;card.querySelector('p').textContent=text}};
 
-function ensureHighlightTiming(container,text,type='blocks'){
-  if(!container||container.querySelector('.specialSchedule'))return;
-  const badge=document.createElement('span');badge.className=`specialSchedule ${type}`;badge.textContent=text;
-  const go=container.querySelector('.go,.specialCta');if(go)container.insertBefore(badge,go);else container.appendChild(badge);
-}
-function findHighlightTile(label){return [...document.querySelectorAll('.specialTile')].find(el=>norm(el.querySelector('b')?.textContent)===norm(label))}
-function findProjectCard(label){return [...document.querySelectorAll('#projects .card.project')].find(el=>norm(el.querySelector('.workTitle')?.textContent)===norm(label))}
-function ensureProjectTiming(card,text,type='blocks'){
-  if(!card||card.querySelector('.projectTiming'))return;
-  const timing=document.createElement('div');timing.className=`projectTiming ${type}`;timing.textContent=text;
-  const pt=card.querySelector('.pt'),link=pt?.querySelector('.plink');if(pt&&link)pt.insertBefore(timing,link);else pt?.appendChild(timing);
-}
-function setButtonSearch(button,term){if(button)button.onclick=()=>searchTerm(term)}
-function retitleHighlight(tile,{title,desc,term,icon}){
-  if(!tile)return;
-  const b=tile.querySelector('b'),small=tile.querySelector('small'),ico=tile.querySelector('.ico');
-  if(b)b.textContent=title;if(small)small.textContent=desc;if(ico&&icon)ico.textContent=icon;setButtonSearch(tile,term);
-}
-function retitleProjectCard(card,{title,desc,term,icon}){
-  if(!card)return;
-  const t=card.querySelector('.workTitle'),pt=card.querySelector('.pt'),link=card.querySelector('.plink'),ico=card.querySelector('.ico');
-  if(t)t.textContent=title;
-  let small=card.querySelector('.small');if(!small&&pt){small=document.createElement('div');small.className='small';pt.insertBefore(small,pt.querySelector('.projectTiming')||link)}
-  if(small)small.textContent=desc;if(ico&&icon)ico.textContent=icon;
-  if(link){link.textContent='Explorar trabalhos →';setButtonSearch(link,term)}
-}
-function createHighlightTile({icon,title,desc,term,cls='green'}){
-  const b=document.createElement('button');b.className='specialTile';setButtonSearch(b,term);
-  b.innerHTML=`<span class="ico ${cls}">${icon}</span><b>${esc(title)}</b><small>${esc(desc)}</small><span class="specialSchedule blocks">Apresentações por blocos</span><span class="go">Explorar →</span>`;
-  return b;
-}
-function createProjectCard({icon,title,desc,term,cls='green'}){
-  const card=document.createElement('div');card.className='card project';
-  card.innerHTML=`<span class="ico ${cls}">${icon}</span><div class="pt"><div class="workTitle">${esc(title)}</div><div class="small">${esc(desc)}</div><div class="projectTiming blocks">Apresentações por blocos • 10h00–11h30 e 11h30–13h00</div><button class="plink" style="border:0;background:none;padding:8px 0 0">Explorar trabalhos →</button></div>`;
-  setButtonSearch(card.querySelector('.plink'),term);return card;
-}
 function cleanProjectLanguage(){
   const first=document.querySelector('#fClass option');if(first)first.textContent='Todos os projetos';
   const explore=document.querySelector('#explore');
   if(explore){const p=explore.querySelector('.top p'),ey=explore.querySelector('.sec .ey');if(p)p.textContent='Escolha um projeto e veja seus trabalhos.';if(ey)ey.textContent='Projetos';}
   const detail=document.querySelector('#classdetail .top p');if(detail)detail.textContent='Trabalhos e grupos vinculados ao projeto.';
 }
-function decorateHighlights(){
-  cleanProjectLanguage();
-  const section=document.querySelector('.specialSpotlight');
-  if(section){
-    const h2=section.querySelector('h2');if(h2)h2.textContent='Projetos em destaque';
-    const hero=section.querySelector('.specialHero');if(hero)ensureHighlightTiming(hero,'Exposição permanente • 10h00–13h00','permanent');
-    ensureHighlightTiming(findHighlightTile('TED-Ed Student Talks'),'Exposição permanente • 10h00–13h00','permanent');
 
-    const ods=findHighlightTile('Projeto STEAM — Objetivos de Desenvolvimento Sustentável')||findHighlightTile('Objetivos de Desenvolvimento Sustentável');
-    retitleHighlight(ods,{title:'Objetivos de Desenvolvimento Sustentável',desc:'Investigação dos ODS por meio de uma abordagem STEAM, articulando ciência, tecnologia, engenharia, artes e matemática.',term:'Objetivos de Desenvolvimento Sustentável',icon:'🌎'});
-    ensureHighlightTiming(ods,'Apresentações por blocos','blocks');
-
-    const terras=findHighlightTile('Projeto STEAM — Terras Raras')||findHighlightTile('Terras Raras');
-    retitleHighlight(terras,{title:'Terras Raras',desc:'Investigação sobre extração, aplicações, tecnologia e sustentabilidade por meio de uma abordagem STEAM.',term:'Terras Raras',icon:'⚛️'});
-    ensureHighlightTiming(terras,'Apresentações por blocos','blocks');
-
-    const hum=findHighlightTile('Humanidades e Linguagens')||findHighlightTile('Arquitetura da Distinção');
-    retitleHighlight(hum,{title:'Arquitetura da Distinção',desc:'Projeto do itinerário de Humanidades e Linguagens sobre gostos, cultura, identidade, pertencimento e diferenças sociais.',term:'Arquitetura da Distinção',icon:'🏛️'});
-    ensureHighlightTiming(hum,'Apresentações por blocos','blocks');
-
-    if(!findHighlightTile('A Ciência da Felicidade')){
-      const grid=section.querySelector('.specialGrid'),all=findHighlightTile('Todos os destaques');
-      const happiness=createHighlightTile({icon:'😊',title:'A Ciência da Felicidade',desc:'Projeto do itinerário de Ciências da Natureza e Matemática que investiga felicidade e bem-estar por meio de experiências aplicadas.',term:'A Ciência da Felicidade',cls:'green'});
-      if(grid)grid.insertBefore(happiness,all||null);
-    }
-  }
-  const projectScreen=document.querySelector('#projects');
-  if(projectScreen){
-    const heading=projectScreen.querySelector('.top h1');if(heading)heading.textContent='Projetos em destaque';
-    ensureProjectTiming(findProjectCard('TED-Ed Student Talks | Colégio Stagio'),'Exposição permanente • 10h00–13h00','permanent');
-    ensureProjectTiming(findProjectCard('Soft Skills Quest'),'Exposição permanente • 10h00–13h00','permanent');
-
-    const odsCard=findProjectCard('Projeto STEAM — Objetivos de Desenvolvimento Sustentável')||findProjectCard('Objetivos de Desenvolvimento Sustentável');
-    retitleProjectCard(odsCard,{title:'Objetivos de Desenvolvimento Sustentável',desc:'Projeto desenvolvido por meio de uma abordagem STEAM, integrando Ciência, Tecnologia, Engenharia, Artes e Matemática na investigação dos ODS.',term:'Objetivos de Desenvolvimento Sustentável',icon:'🌎'});
-    ensureProjectTiming(odsCard,'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
-
-    const terrasCard=findProjectCard('Projeto STEAM — Terras Raras')||findProjectCard('Terras Raras');
-    retitleProjectCard(terrasCard,{title:'Terras Raras',desc:'Projeto desenvolvido por meio de uma abordagem STEAM para investigar extração, aplicações tecnológicas, impactos e sustentabilidade das terras raras.',term:'Terras Raras',icon:'⚛️'});
-    ensureProjectTiming(terrasCard,'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
-
-    const humCard=findProjectCard('Humanidades e Linguagens')||findProjectCard('Arquitetura da Distinção');
-    retitleProjectCard(humCard,{title:'Arquitetura da Distinção',desc:'Projeto do itinerário de Humanidades e Linguagens inspirado na ideia de distinção de Pierre Bourdieu, investigando gosto, identidade, cultura e diferenças sociais.',term:'Arquitetura da Distinção',icon:'🏛️'});
-    ensureProjectTiming(humCard,'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
-
-    if(!findProjectCard('A Ciência da Felicidade')){
-      const sec=projectScreen.querySelector('.sec');
-      const happiness=createProjectCard({icon:'😊',title:'A Ciência da Felicidade',desc:'Projeto do itinerário de Ciências da Natureza e Matemática que investiga felicidade e bem-estar em três experiências aplicadas: leitura com crianças, lazer na escola e ambiente sensorial.',term:'A Ciência da Felicidade',cls:'green'});
-      if(sec&&humCard)sec.insertBefore(happiness,humCard);else sec?.appendChild(happiness);
-    }
-  }
+const FEATURED_PROJECTS=[
+  {name:'Soft Skills Quest',icon:'🎮',description:'Projeto desenvolvido na disciplina Comunicação Assertiva e Trabalho em Equipe, com uma jornada gamificada de comunicação, colaboração, liderança, criatividade, tomada de decisão e pensamento crítico.',timing:'Exposição permanente • 10h00–13h00',kind:'permanent'},
+  {name:'TED-Ed Student Talks',icon:'🎤',description:'Projeto desenvolvido na disciplina Comunicação Efetiva, em que ideias autorais ganham forma por meio de pesquisa, escrita, narrativa, oralidade e apresentação pública.',timing:'Exposição permanente • 10h00–13h00',kind:'permanent'},
+  {name:'Objetivos de Desenvolvimento Sustentável',icon:'🌎',description:'Investigação dos Objetivos de Desenvolvimento Sustentável por meio de uma abordagem STEAM, articulando Ciência, Tecnologia, Engenharia, Artes e Matemática.',timing:'Apresentações por blocos',kind:'blocks'},
+  {name:'Terras Raras',icon:'⚛️',description:'Investigação sobre extração, aplicações tecnológicas, impactos e sustentabilidade das terras raras por meio de uma abordagem STEAM.',timing:'Apresentações por blocos',kind:'blocks'},
+  {name:'Arquitetura da Distinção',icon:'🏛️',description:'Projeto do itinerário de Humanidades e Linguagens que investiga como gostos, hábitos, cultura e linguagem constroem identidades, pertencimentos e diferenças sociais.',timing:'Apresentações por blocos',kind:'blocks'},
+  {name:'A Ciência da Felicidade',icon:'😊',description:'Projeto do itinerário de Ciências da Natureza e Matemática que investiga felicidade e bem-estar em experiências aplicadas de leitura, lazer, convivência e estímulos sensoriais.',timing:'Apresentações por blocos',kind:'blocks'}
+];
+let featuredIndex=0,featuredTimer=null;
+function featuredProjectExists(name){return rows.some(r=>norm(r.turma)===norm(name))}
+function availableFeaturedProjects(){const live=FEATURED_PROJECTS.filter(p=>featuredProjectExists(p.name));return live.length?live:FEATURED_PROJECTS}
+function renderFeaturedProject(index=featuredIndex){
+  const list=availableFeaturedProjects();if(!list.length)return;
+  featuredIndex=((index%list.length)+list.length)%list.length;
+  const p=list[featuredIndex],card=document.getElementById('featuredProjectCard');if(!card)return;
+  card.classList.add('changing');
+  setTimeout(()=>{
+    card.dataset.kind=p.kind;
+    card.innerHTML=`<div class="featuredProjectCopy"><span class="featuredTag">Projeto em destaque</span><div class="featuredIcon" aria-hidden="true">${p.icon}</div><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="featuredTiming ${p.kind}">${esc(p.timing)}</span><button class="featuredOpen" onclick="openClass('${arg(p.name)}')">Explorar projeto →</button></div>`;
+    const dots=document.getElementById('featuredDots');if(dots)dots.innerHTML=list.map((item,i)=>`<button aria-label="Ver ${esc(item.name)}" class="featuredDot${i===featuredIndex?' on':''}" onclick="setFeaturedProject(${i})"></button>`).join('');
+    const counter=document.getElementById('featuredCounter');if(counter)counter.textContent=`${featuredIndex+1} de ${list.length}`;
+    card.classList.remove('changing');
+  },120);
 }
-decorateHighlights();
+function setFeaturedProject(index){renderFeaturedProject(index);restartFeaturedTimer()}
+function nextFeaturedProject(){renderFeaturedProject(featuredIndex+1)}
+function prevFeaturedProject(){renderFeaturedProject(featuredIndex-1);restartFeaturedTimer()}
+function restartFeaturedTimer(){if(featuredTimer)clearInterval(featuredTimer);featuredTimer=setInterval(nextFeaturedProject,30000)}
+function buildFeaturedCarousel(){
+  const section=document.querySelector('.specialSpotlight');if(!section)return;
+  section.innerHTML=`<div class="specialHead"><div><div class="ey">Experiências em destaque</div><h2>Projetos em destaque</h2></div></div><p class="specialLead">Conheça alguns dos projetos que compõem a Mostra. O destaque muda automaticamente a cada 30 segundos.</p><div class="featuredCarousel" aria-live="polite"><div id="featuredProjectCard" class="featuredProjectCard"></div><div class="featuredControls"><button class="featuredArrow" onclick="prevFeaturedProject()" aria-label="Projeto anterior">←</button><div id="featuredDots" class="featuredDots"></div><span id="featuredCounter" class="featuredCounter"></span><button class="featuredArrow" onclick="setFeaturedProject(featuredIndex+1)" aria-label="Próximo projeto">→</button></div></div><button class="featuredAll" onclick="show('explore')">Veja todos os projetos →</button>`;
+  renderFeaturedProject(0);restartFeaturedTimer();
+}
+cleanProjectLanguage();
+buildFeaturedCarousel();
