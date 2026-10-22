@@ -1,0 +1,14 @@
+{
+  "name": "Mostra Cultural 2026 — Colégio Stagio",
+  "short_name": "Mostra 2026",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#071b4a",
+  "lang": "pt-BR",
+  "description": "Guia digital da Mostra Cultural 2026: alunos, trabalhos, salas e horários.",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
