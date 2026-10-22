@@ -1,0 +1,81 @@
+name: Publicar logo transparente do Stagio
+
+on:
+  push:
+    paths:
+      - '.github/workflows/transparent-logo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  transparent-logo:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Pillow
+        run: python -m pip install --quiet pillow
+
+      - name: Gerar logo transparente e atualizar site
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import base64, io, re
+
+          svg = Path('logo-stagio.svg').read_text(encoding='utf-8')
+          match = re.search(r'data:image/webp;base64,([^\"]+)', svg)
+          if not match:
+              raise SystemExit('Imagem embutida do logo não encontrada.')
+
+          raw = base64.b64decode(match.group(1))
+          image = Image.open(io.BytesIO(raw)).convert('RGBA')
+          pixels = image.load()
+
+          # Torna apenas o fundo branco/neutro transparente, preservando
+          # integralmente azul, verde, proporções e desenho da marca original.
+          for y in range(image.height):
+              for x in range(image.width):
+                  r, g, b, a = pixels[x, y]
+                  hi, lo = max(r, g, b), min(r, g, b)
+                  if lo >= 242 and (hi - lo) <= 14:
+                      # Transição suave para conservar antialiasing nas bordas.
+                      alpha = max(0, min(255, int((255 - lo) * 19.6)))
+                      pixels[x, y] = (r, g, b, min(a, alpha))
+
+          image.save('logo-stagio-transparent.png', 'PNG', optimize=True)
+
+          html_path = Path('index.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = html.replace('src="logo-stagio.svg"', 'src="logo-stagio-transparent.png?v=32"', 1)
+          html_path.write_text(html, encoding='utf-8')
+
+          sw_path = Path('sw.js')
+          sw = sw_path.read_text(encoding='utf-8')
+          sw = re.sub(r"const CACHE='mostra-cultural-2026-v\d+';", "const CACHE='mostra-cultural-2026-v32';", sw, count=1)
+          sw = sw.replace("'./logo-stagio.svg'", "'./logo-stagio-transparent.png?v=32'", 1)
+          sw = sw.replace("u.pathname.endsWith('/logo-stagio.svg')", "u.pathname.endsWith('/logo-stagio-transparent.png')", 1)
+          sw_path.write_text(sw, encoding='utf-8')
+          PY
+
+      - name: Publicar arquivos
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add logo-stagio-transparent.png index.html sw.js
+          if ! git diff --cached --quiet; then
+            git commit -m "Publica logo original com fundo transparente [skip ci]"
+            git push
+          fi
