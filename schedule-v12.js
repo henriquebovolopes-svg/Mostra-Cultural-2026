@@ -5,9 +5,17 @@ function isPermanent(r){const h=(r.horario||'').replace('–','-');return norm(r
 function isBlock(r){return r.horario===BLOCK_1||r.horario===BLOCK_2}
 priority=r=>(isBlock(r)?220:0)+(r.titulo&&r.sala&&r.horario?100:0)+(r.sala&&r.horario?40:0)+(r.titulo?20:0)+(r.grupo?8:0)+(r.sala?5:0)+(r.horario?5:0)+(isPermanent(r)?2:0);
 const baseOpenWork=openWork;
-openWork=function(encoded){workReturnScreen=document.querySelector('.screen.on')?.id||'explore';baseOpenWork(encoded)};
+openWork=function(encoded){
+  workReturnScreen=document.querySelector('.screen.on')?.id||'explore';
+  baseOpenWork(encoded);
+  const project=findProject(decodeURIComponent(encoded)),r=project?.ref;
+  if(r?.expo){
+    const meta=document.querySelector('#workBody .workHero .meta');if(meta)meta.textContent=r.expo;
+    const axis=document.querySelector('#workBody .axisContext strong');if(axis)axis.textContent=r.expo;
+  }
+};
 function backFromWork(){show(workReturnScreen&&workReturnScreen!=='workdetail'?workReturnScreen:'explore')}
-function scheduleCard(p){const r=p.ref;return `<button class="scheduleWork projectBtn" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${r.sala?`Sala ${esc(r.sala)} • `:''}${esc(r.turma||'')}${r.grupo?` • ${esc(r.grupo)}`:''}</div></button>`}
+function scheduleCard(p){const r=p.ref,context=r.expo||r.turma;return `<button class="scheduleWork projectBtn" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${r.sala?`Sala ${esc(r.sala)} • `:''}${esc(context||'')}${r.grupo?` • ${esc(r.grupo)}`:''}</div></button>`}
 renderSchedule=function(){
   const permanentRows=rows.filter(isPermanent),permanentProjects=groupProjects(permanentRows).sort((a,b)=>String(a.ref.titulo).localeCompare(String(b.ref.titulo),'pt-BR')),permanentStudents=new Set(permanentRows.map(r=>norm(r.name))).size;
   const permanent=$('permanent');
@@ -31,6 +39,17 @@ function ensureProjectTiming(card,text,type='blocks'){
   const timing=document.createElement('div');timing.className=`projectTiming ${type}`;timing.textContent=text;
   const pt=card.querySelector('.pt'),link=pt?.querySelector('.plink');if(pt&&link)pt.insertBefore(timing,link);else pt?.appendChild(timing);
 }
+function setButtonSearch(button,term){if(button)button.onclick=()=>searchTerm(term)}
+function createHighlightTile({icon,title,desc,term,cls='green'}){
+  const b=document.createElement('button');b.className='specialTile';setButtonSearch(b,term);
+  b.innerHTML=`<span class="ico ${cls}">${icon}</span><b>${esc(title)}</b><small>${esc(desc)}</small><span class="specialSchedule blocks">Apresentações por blocos</span><span class="go">Explorar →</span>`;
+  return b;
+}
+function createProjectCard({icon,title,desc,term,cls='green'}){
+  const card=document.createElement('div');card.className='card project';
+  card.innerHTML=`<span class="ico ${cls}">${icon}</span><div class="pt"><div class="workTitle">${esc(title)}</div><div class="small">${esc(desc)}</div><div class="projectTiming blocks">Apresentações por blocos • 10h00–11h30 e 11h30–13h00</div><button class="plink" style="border:0;background:none;padding:8px 0 0">Explorar trabalhos →</button></div>`;
+  setButtonSearch(card.querySelector('.plink'),term);return card;
+}
 function decorateHighlights(){
   const section=document.querySelector('.specialSpotlight');
   if(section){
@@ -39,7 +58,22 @@ function decorateHighlights(){
     ensureHighlightTiming(findHighlightTile('TED-Ed Student Talks'),'Exposição permanente • 10h00–13h00','permanent');
     ensureHighlightTiming(findHighlightTile('Projeto STEAM — Objetivos de Desenvolvimento Sustentável'),'Apresentações por blocos','blocks');
     ensureHighlightTiming(findHighlightTile('Projeto STEAM — Terras Raras'),'Apresentações por blocos','blocks');
-    ensureHighlightTiming(findHighlightTile('Humanidades e Linguagens'),'Apresentações por blocos','blocks');
+
+    const hum=findHighlightTile('Humanidades e Linguagens')||findHighlightTile('Arquitetura da Distinção');
+    if(hum){
+      const b=hum.querySelector('b'),small=hum.querySelector('small'),ico=hum.querySelector('.ico');
+      if(b)b.textContent='Arquitetura da Distinção';
+      if(small)small.textContent='Gostos, cultura, identidade e diferenças sociais pelo olhar de Humanidades e Linguagens.';
+      if(ico)ico.textContent='🏛️';
+      setButtonSearch(hum,'ITINERÁRIO CIÊNCIAS HUMANAS E LINGUAGENS');
+      ensureHighlightTiming(hum,'Apresentações por blocos','blocks');
+    }
+
+    if(!findHighlightTile('A Ciência da Felicidade')){
+      const grid=section.querySelector('.specialGrid'),all=findHighlightTile('Todos os destaques');
+      const happiness=createHighlightTile({icon:'😊',title:'A Ciência da Felicidade',desc:'Leitura, lazer e experiências sensoriais investigando fatores associados ao bem-estar.',term:'A Ciência da Felicidade',cls:'green'});
+      if(grid)grid.insertBefore(happiness,all||null);
+    }
   }
   const projectScreen=document.querySelector('#projects');
   if(projectScreen){
@@ -48,7 +82,23 @@ function decorateHighlights(){
     ensureProjectTiming(findProjectCard('Soft Skills Quest'),'Exposição permanente • 10h00–13h00','permanent');
     ensureProjectTiming(findProjectCard('Projeto STEAM — Objetivos de Desenvolvimento Sustentável'),'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
     ensureProjectTiming(findProjectCard('Projeto STEAM — Terras Raras'),'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
-    ensureProjectTiming(findProjectCard('Humanidades e Linguagens'),'Apresentações por blocos','blocks');
+
+    const humCard=findProjectCard('Humanidades e Linguagens')||findProjectCard('Arquitetura da Distinção');
+    if(humCard){
+      const title=humCard.querySelector('.workTitle'),pt=humCard.querySelector('.pt'),link=humCard.querySelector('.plink'),ico=humCard.querySelector('.ico');
+      if(title)title.textContent='Arquitetura da Distinção';
+      let small=humCard.querySelector('.small');if(!small&&pt){small=document.createElement('div');small.className='small';pt.insertBefore(small,pt.querySelector('.projectTiming')||link)}
+      if(small)small.textContent='Humanidades e Linguagens investiga como gostos, hábitos, consumo, linguagem e cultura constroem identidades, pertencimentos e diferenças sociais.';
+      if(ico)ico.textContent='🏛️';
+      if(link){link.textContent='Explorar trabalhos →';setButtonSearch(link,'ITINERÁRIO CIÊNCIAS HUMANAS E LINGUAGENS')}
+      ensureProjectTiming(humCard,'Apresentações por blocos • 10h00–11h30 e 11h30–13h00','blocks');
+    }
+
+    if(!findProjectCard('A Ciência da Felicidade')){
+      const sec=projectScreen.querySelector('.sec');
+      const happiness=createProjectCard({icon:'😊',title:'A Ciência da Felicidade',desc:'Natureza e Matemática investiga a felicidade e o bem-estar em três experiências aplicadas: leitura com crianças, lazer na escola e ambiente sensorial.',term:'A Ciência da Felicidade',cls:'green'});
+      if(sec&&humCard)sec.insertBefore(happiness,humCard);else sec?.appendChild(happiness);
+    }
   }
 }
 decorateHighlights();
