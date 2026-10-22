@@ -4,6 +4,7 @@ let workReturnScreen='explore';
 function isPermanent(r){const h=(r.horario||'').replace('–','-');return norm(r.grupo)==='exposicao permanente'||h==='10h00-13h00'}
 function isBlock(r){return r.horario===BLOCK_1||r.horario===BLOCK_2}
 priority=r=>(isBlock(r)?220:0)+(r.titulo&&r.sala&&r.horario?100:0)+(r.sala&&r.horario?40:0)+(r.titulo?20:0)+(r.grupo?8:0)+(r.sala?5:0)+(r.horario?5:0)+(isPermanent(r)?2:0);
+function publicContext(r){return r?.expo||r?.turma||''}
 const baseOpenWork=openWork;
 openWork=function(encoded){
   workReturnScreen=document.querySelector('.screen.on')?.id||'explore';
@@ -14,8 +15,20 @@ openWork=function(encoded){
     const axis=document.querySelector('#workBody .axisContext strong');if(axis)axis.textContent=r.expo;
   }
 };
+const baseOpenStudent=openStudent;
+openStudent=function(encoded,push=true){
+  baseOpenStudent(encoded,push);
+  const name=decodeURIComponent(encoded),s=students.find(x=>norm(x.name)===norm(name));if(!s)return;
+  const ws=works(s),primary=ws[0];
+  if(primary?.expo){const meta=document.querySelector('#profileBody .profileHero .meta');if(meta)meta.textContent=primary.expo}
+  document.querySelectorAll('#profileBody .workProfile').forEach((card,i)=>{
+    const w=ws[i];if(!w?.expo||card.querySelector('.projectContext'))return;
+    const context=document.createElement('div');context.className='meta projectContext';context.style.margin='6px 0 10px';context.textContent=`Projeto: ${w.expo}`;
+    const chips=card.querySelector('.chips');if(chips)card.insertBefore(context,chips);else card.prepend(context);
+  });
+};
 function backFromWork(){show(workReturnScreen&&workReturnScreen!=='workdetail'?workReturnScreen:'explore')}
-function scheduleCard(p){const r=p.ref,context=r.expo||r.turma;return `<button class="scheduleWork projectBtn" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${r.sala?`Sala ${esc(r.sala)} • `:''}${esc(context||'')}${r.grupo?` • ${esc(r.grupo)}`:''}</div></button>`}
+function scheduleCard(p){const r=p.ref,context=publicContext(r);return `<button class="scheduleWork projectBtn" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${r.sala?`Sala ${esc(r.sala)} • `:''}${esc(context)}${r.grupo?` • ${esc(r.grupo)}`:''}</div></button>`}
 renderSchedule=function(){
   const permanentRows=rows.filter(isPermanent),permanentProjects=groupProjects(permanentRows).sort((a,b)=>String(a.ref.titulo).localeCompare(String(b.ref.titulo),'pt-BR')),permanentStudents=new Set(permanentRows.map(r=>norm(r.name))).size;
   const permanent=$('permanent');
