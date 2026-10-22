@@ -11,6 +11,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="app-v7.css">
+<link rel="stylesheet" href="final-v12.css">
 <title>Mostra Cultural 2026 — Colégio Stagio</title>
 </head>
 <body>
@@ -41,8 +42,8 @@
 <section id="profile" class="screen"><div class="top"><button class="back" onclick="show('search')">← Voltar à busca</button><h1>Ficha do estudante</h1><p>Informações de apresentação na Mostra.</p></div><div id="profileBody" class="sec"></div></section>
 <section id="explore" class="screen"><div class="top"><h1>Explorar a Mostra</h1><p>Escolha uma turma e veja seus trabalhos.</p></div><div class="sec"><div class="ey">Turmas</div><h2>Onde você quer começar?</h2><div id="classList"></div></div></section>
 <section id="classdetail" class="screen"><div class="top"><button class="back" onclick="show('explore')">← Todas as turmas</button><h1>Trabalhos da turma</h1><p>Projetos e grupos vinculados.</p></div><div id="classBody" class="sec"></div></section>
-<section id="workdetail" class="screen"><div class="top"><button class="back" onclick="history.back()">← Voltar</button><h1>Trabalho</h1><p>Grupo, integrantes e programação.</p></div><div id="workBody" class="sec"></div></section>
-<section id="schedule" class="screen"><div class="top"><h1>Programação</h1><p>Veja os trabalhos programados em cada bloco.</p></div><div class="sec"><div id="b1" class="scheduleBlock"></div><div id="b2" class="scheduleBlock"></div></div></section>
+<section id="workdetail" class="screen"><div class="top"><button class="back" onclick="backFromWork()">← Voltar</button><h1>Trabalho</h1><p>Grupo, integrantes e programação.</p></div><div id="workBody" class="sec"></div></section>
+<section id="schedule" class="screen"><div class="top"><h1>Programação</h1><p>Exposições permanentes e apresentações distribuídas em dois blocos.</p></div><div class="sec"><div id="permanent"></div><div id="b1" class="scheduleBlock"></div><div id="b2" class="scheduleBlock"></div></div></section>
 <section id="rooms" class="screen"><div class="top"><h1>Salas da Mostra</h1><p>Escolha uma sala para ver os trabalhos programados ali.</p></div><div class="sec"><div id="roomButtons" class="rooms"></div><div class="map"><b>🗺️ Mapa visual em preparação</b><p>A planta real será incorporada posteriormente. A navegação por sala já funciona.</p></div><div id="roomResults"></div></div></section>
 <section id="projects" class="screen"><div class="top"><button class="back" onclick="show('home')">← Início</button><h1>Projetos especiais</h1><p>Experiências e produções que ampliam a Mostra Cultural.</p></div><div class="sec">
 <div class="card project"><span class="ico">🎤</span><div class="pt"><div class="workTitle">TED-Ed Student Talks | Colégio Stagio</div><div class="small">Canal oficial com os talks produzidos pelos estudantes.</div><a class="plink" href="https://www.youtube.com/channel/UCL_DflJA5SMCueBaJXql2nA" target="_blank" rel="noopener">Assistir no YouTube →</a></div></div>
@@ -58,5 +59,6 @@
 <button class="nav" data-s="schedule" onclick="show('schedule')"><span>◷</span>Horários</button>
 </div></nav>
 <script src="app-v7.js"></script>
+<script src="schedule-v12.js"></script>
 </body>
 </html>
