@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - '.github/workflows/transparent-logo.yml'
+      - 'logo-stagio.svg'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -37,35 +39,44 @@ jobs:
           svg = Path('logo-stagio.svg').read_text(encoding='utf-8')
           match = re.search(r'data:image/webp;base64,([^\"]+)', svg)
           if not match:
-              raise SystemExit('Imagem embutida do logo não encontrada.')
+              raise SystemExit('Imagem original embutida do logo não encontrada.')
 
           raw = base64.b64decode(match.group(1))
           image = Image.open(io.BytesIO(raw)).convert('RGBA')
           pixels = image.load()
 
-          # Torna apenas o fundo branco/neutro transparente, preservando
-          # integralmente azul, verde, proporções e desenho da marca original.
+          # Remove somente o fundo branco/neutro da arte original.
+          # Não redimensiona, não redesenha e não altera azul/verde da marca.
           for y in range(image.height):
               for x in range(image.width):
                   r, g, b, a = pixels[x, y]
                   hi, lo = max(r, g, b), min(r, g, b)
-                  if lo >= 242 and (hi - lo) <= 14:
-                      # Transição suave para conservar antialiasing nas bordas.
-                      alpha = max(0, min(255, int((255 - lo) * 19.6)))
+                  if lo >= 238 and (hi - lo) <= 16:
+                      # Feather leve para preservar antialiasing da borda.
+                      alpha = max(0, min(255, int((248 - lo) * 25.5)))
                       pixels[x, y] = (r, g, b, min(a, alpha))
 
           image.save('logo-stagio-transparent.png', 'PNG', optimize=True)
 
           html_path = Path('index.html')
           html = html_path.read_text(encoding='utf-8')
-          html = html.replace('src="logo-stagio.svg"', 'src="logo-stagio-transparent.png?v=32"', 1)
+          html = re.sub(r'src="logo-stagio(?:-transparent)?\.(?:svg|png)(?:\?v=\d+)?"', 'src="logo-stagio-transparent.png?v=34"', html, count=1)
+          html = re.sub(r'final-v12\.css\?v=\d+', 'final-v12.css?v=34', html, count=1)
           html_path.write_text(html, encoding='utf-8')
+
+          css_path = Path('final-v12.css')
+          css = css_path.read_text(encoding='utf-8')
+          css = css.replace('mix-blend-mode:multiply', 'mix-blend-mode:normal')
+          css_path.write_text(css, encoding='utf-8')
 
           sw_path = Path('sw.js')
           sw = sw_path.read_text(encoding='utf-8')
-          sw = re.sub(r"const CACHE='mostra-cultural-2026-v\d+';", "const CACHE='mostra-cultural-2026-v32';", sw, count=1)
-          sw = sw.replace("'./logo-stagio.svg'", "'./logo-stagio-transparent.png?v=32'", 1)
-          sw = sw.replace("u.pathname.endsWith('/logo-stagio.svg')", "u.pathname.endsWith('/logo-stagio-transparent.png')", 1)
+          sw = re.sub(r"const CACHE='mostra-cultural-2026-v\d+';", "const CACHE='mostra-cultural-2026-v34';", sw, count=1)
+          sw = re.sub(r"'\./logo-stagio(?:-transparent)?\.(?:svg|png)(?:\?v=\d+)?'", "'./logo-stagio-transparent.png?v=34'", sw, count=1)
+          sw = re.sub(r"'\./final-v12\.css\?v=\d+'", "'./final-v12.css?v=34'", sw, count=1)
+          sw = sw.replace("u.pathname.endsWith('/logo-stagio.svg')", "u.pathname.endsWith('/logo-stagio-transparent.png')")
+          if "u.pathname.endsWith('/logo-stagio-transparent.png')" not in sw:
+              sw = sw.replace("u.pathname.endsWith('/app-preview-v17.svg')||", "u.pathname.endsWith('/app-preview-v17.svg')||u.pathname.endsWith('/logo-stagio-transparent.png')||")
           sw_path.write_text(sw, encoding='utf-8')
           PY
 
@@ -74,7 +85,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add logo-stagio-transparent.png index.html sw.js
+          git add logo-stagio-transparent.png index.html final-v12.css sw.js
           if ! git diff --cached --quiet; then
             git commit -m "Publica logo original com fundo transparente [skip ci]"
             git push
