@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a5ca8"/><stop offset=".58" stop-color="#063b7d"/><stop offset="1" stop-color="#0b2f6a"/></linearGradient>
+  <linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a55a0"/><stop offset=".45" stop-color="#0a6aa3"/><stop offset=".72" stop-color="#2da66b"/><stop offset="1" stop-color="#73c900"/></linearGradient>
+  <linearGradient id="topg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d4b8d"/><stop offset=".6" stop-color="#0e73a5"/><stop offset="1" stop-color="#96d74c"/></linearGradient>
+  <linearGradient id="bottomg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#88d441"/><stop offset=".45" stop-color="#1bb39d"/><stop offset="1" stop-color="#0b3f8d"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#09294d" flood-opacity=".22"/></filter>
+</defs>
+<rect x="19" y="19" width="474" height="474" rx="90" fill="#fff" filter="url(#shadow)"/>
+<clipPath id="clip"><rect x="19" y="19" width="474" height="474" rx="90"/></clipPath>
+<g clip-path="url(#clip)">
+  <path d="M-20 45 C90 10 180 18 277 9 C357 2 429 6 532 -8 L532 57 C426 49 365 68 304 96 C214 138 126 127 42 116 C18 113 -3 113 -20 115Z" fill="url(#topg)"/>
+  <path d="M-20 92 C60 111 113 119 181 100 C248 81 296 48 347 21 C405 -10 466 -2 532 3 L532 44 C453 35 402 51 342 81 C278 113 228 130 172 131 C90 132 29 109 -20 111Z" fill="#8bd64e" opacity=".86"/>
+  <path d="M-20 366 C70 430 132 442 218 423 C290 407 352 389 420 405 C468 416 505 435 532 452 L532 532 H-20Z" fill="url(#bottomg)"/>
+  <path d="M-20 389 C90 462 181 458 269 434 C348 413 426 421 532 477 L532 532 H-20Z" fill="#0d5a8f" opacity=".86"/>
+  <path d="M-20 416 C91 473 197 486 307 458 C388 438 453 455 532 497 L532 532 H-20Z" fill="#073a80" opacity=".96"/>
+</g>
+<g>
+  <path d="M109 158 H143 L212 229 L280 158 H313 V327 H273 V220 L216 277 H207 L149 220 V327 H109Z" fill="url(#blue)"/>
+  <path d="M381 168 C335 168 299 203 299 250 C299 298 335 332 381 332 C411 332 436 321 454 301 L424 276 C413 289 399 296 381 296 C356 296 339 278 339 250 C339 222 356 204 381 204 C398 204 412 211 423 223 L454 198 C436 178 411 168 381 168Z" fill="url(#cg)"/>
+  <path d="M167 337 C190 323 213 319 238 325 C248 328 257 332 267 338 C248 335 230 337 213 342 C196 347 181 353 167 362Z" fill="#0b4b94"/>
+  <path d="M267 338 C290 324 312 320 336 324 C354 327 370 334 385 346 L385 369 C367 358 350 352 332 349 C309 346 288 350 267 362Z" fill="#59b51f"/>
+  <path d="M267 339 C257 332 248 328 238 325 C213 319 190 323 167 337 L267 361Z" fill="#ffffff" opacity=".18"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" fill="#0b4b94" text-anchor="middle">
+  <rect x="145" y="389" width="40" height="3" rx="1.5" fill="#5d89b0"/>
+  <rect x="327" y="389" width="40" height="3" rx="1.5" fill="#5d89b0"/>
+  <text x="256" y="403" font-size="37" font-weight="700" letter-spacing="13">2026</text>
+</g>
+</svg>
