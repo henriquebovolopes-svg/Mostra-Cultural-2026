@@ -1,4 +1,4 @@
-const CACHE='mostra-cultural-2026-v12';
+const CACHE='mostra-cultural-2026-v13';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./logo-stagio.svg','./app-v7.css','./app-v7.js','./descriptions-v1.css','./final-v12.css','./schedule-v12.js','./soft-skills-quest.html','./soft-skills-quest.css','./assets/ssq/scout-fieldscan.webp','./assets/ssq/level5-expedicao.webp','./assets/ssq/carta-falar.webp','./assets/ssq/carta-veto.webp','./assets/ssq/estrelas.webp','./assets/ssq/megastar.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
