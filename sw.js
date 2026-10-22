@@ -1,5 +1,5 @@
 const CACHE='mostra-cultural-2026-v20';
-const ASSETS=['./','./index.html','./manifest.webmanifest?v=19','./mc2026-icon-v2.svg?v=19','./mc2026-icon-v2.svg?v=20','./app-preview-v17.svg?v=20','./logo-stagio.svg','./app-v7.css','./app-v7.js','./descriptions-v1.css','./final-v12.css?v=19','./schedule-v12.js?v=19','./soft-skills-quest.html','./soft-skills-quest.css','./assets/ssq/scout-fieldscan.webp','./assets/ssq/level5-expedicao.webp','./assets/ssq/carta-falar.webp','./assets/ssq/carta-veto.webp','./assets/ssq/estrelas.webp','./assets/ssq/megastar.webp'];
+const ASSETS=['./','./index.html','./manifest.webmanifest?v=20','./mc2026-icon-v2.svg?v=20','./app-preview-v17.svg?v=20','./logo-stagio.svg','./app-v7.css','./app-v7.js','./descriptions-v1.css','./final-v12.css?v=20','./schedule-v12.js?v=20','./soft-skills-quest.html','./soft-skills-quest.css','./assets/ssq/scout-fieldscan.webp','./assets/ssq/level5-expedicao.webp','./assets/ssq/carta-falar.webp','./assets/ssq/carta-veto.webp','./assets/ssq/estrelas.webp','./assets/ssq/megastar.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
 self.addEventListener('fetch',e=>{
