@@ -1,5 +1,5 @@
-const CACHE='mostra-cultural-2026-v5';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg'];
+const CACHE='mostra-cultural-2026-v6';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./ux-v6.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(u.hostname.includes('google.com')||u.hostname.includes('googleusercontent.com'))return;e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{if(e.request.method==='GET'&&r.ok){const clone=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,clone));}return r;}).catch(()=>caches.match('./index.html'))));});
+self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(u.hostname.includes('google.com')||u.hostname.includes('googleusercontent.com'))return;if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(async r=>{let html=await r.text();if(!html.includes('ux-v6.js'))html=html.replace('</body>','<script src="./ux-v6.js"></script></body>');return new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache'}})}).catch(()=>caches.match('./index.html')));return;}e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{if(e.request.method==='GET'&&r.ok){const clone=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,clone));}return r;})));});
