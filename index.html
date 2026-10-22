@@ -26,15 +26,30 @@
 <div class="searchWrap"><div class="searchBox"><div class="search"><span>🔎</span><input id="homeSearch" autocomplete="off" placeholder="Quem você veio encontrar?"><button class="searchGo" onclick="homeToSearch()">Buscar</button></div><div id="homeSuggestions" class="suggestions"></div></div></div>
 <div id="sync" class="status"><span>Carregando a base oficial…</span><button onclick="loadLive()">Atualizar</button></div>
 <div id="nowCard" class="nowCard"><div class="ey">No dia da Mostra</div><h2>Seu guia de visitação</h2><p>No dia 14/11, esta área mostrará automaticamente qual bloco está acontecendo naquele momento.</p></div>
+
+<div class="sec specialSpotlight">
+<div class="specialHead"><div><div class="ey">Experiências em destaque</div><h2>Trabalhos especiais</h2></div></div>
+<p class="specialLead">Alguns projetos atravessam a Mostra com formatos, linguagens e experiências próprias. Comece por eles ou continue explorando todos os trabalhos do colégio.</p>
+<div class="specialGrid">
+<a class="specialHero" href="soft-skills-quest.html">
+<div class="specialHeroCopy"><span class="specialTag">Projeto especial • 2º EM</span><h3>Soft Skills Quest</h3><p>Uma jornada gamificada por mundos, missões, personagens e desafios de comunicação, exploração e criação.</p><span class="specialCta">Entrar na Quest →</span></div>
+<img class="specialVisual" src="assets/ssq/scout-fieldscan.webp" alt="Scout, personagem do Soft Skills Quest">
+</a>
+<a class="specialTile" href="https://www.youtube.com/channel/UCL_DflJA5SMCueBaJXql2nA" target="_blank" rel="noopener"><span class="ico">🎤</span><b>TED-Ed Student Talks</b><small>Ideias dos estudantes transformadas em talks.</small><span class="go">Assistir →</span></a>
+<button class="specialTile" onclick="searchTerm('STEAM')"><span class="ico green">🔬</span><b>STEAM</b><small>Investigações, protótipos e soluções desenvolvidas pelas turmas.</small><span class="go">Explorar →</span></button>
+<button class="specialTile" onclick="searchTerm('HUMANAS')"><span class="ico teal">📚</span><b>Humanidades e Linguagens</b><small>Leituras do mundo, cultura, sociedade e comunicação.</small><span class="go">Explorar →</span></button>
+<button class="specialTile" onclick="show('projects')"><span class="ico green">✨</span><b>Todos os especiais</b><small>Veja a seleção completa de experiências em destaque.</small><span class="go">Abrir seleção →</span></button>
+</div>
+</div>
+
 <div class="sec"><div class="ey">Acesso rápido</div><h2>Explore a Mostra</h2><div class="quick">
 <button onclick="show('search')"><span class="ico">👤</span><b>Encontrar aluno</b><small>Nome, turma ou trabalho</small></button>
 <button onclick="show('explore')"><span class="ico green">🏫</span><b>Explorar turmas</b><small>Trabalhos e integrantes</small></button>
 <button onclick="show('schedule')"><span class="ico teal">🕐</span><b>Programação</b><small>O que acontece em cada bloco</small></button>
 <button onclick="show('rooms')"><span class="ico green">📍</span><b>Salas</b><small>Trabalhos por espaço</small></button>
 </div></div>
-<div class="sec"><div class="ey">Dados da base</div><h2>Visão geral</h2><div id="stats" class="stats"></div></div>
 <div class="sec"><div class="feature"><b>Duas formas de usar</b><p>Procure diretamente um estudante ou explore a Mostra por turma, trabalho, horário e sala.</p></div></div>
-<div class="sec"><button class="secondaryBtn" onclick="show('projects')">✨ Ver projetos especiais</button></div>
+<div class="sec devPanel"><div class="ey">Painel de preparação</div><h2>Base de dados</h2><p class="devNote">Informações técnicas temporárias para acompanhamento da montagem do guia. Este bloco será retirado da versão final.</p><div id="stats" class="stats"></div></div>
 <div class="footer">Mostra Cultural 2026 • <a href="https://colegiostagio.com.br/" target="_blank" rel="noopener">Colégio Stagio</a></div>
 </section>
 
