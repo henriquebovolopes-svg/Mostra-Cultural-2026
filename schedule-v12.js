@@ -89,3 +89,7 @@ function buildFeaturedCarousel(){
 }
 cleanProjectLanguage();
 buildFeaturedCarousel();
+
+const tedVideoModule=document.createElement('script');
+tedVideoModule.src='ted-video-v1.js?v=25';
+document.body.appendChild(tedVideoModule);
