@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485 160" role="img" aria-label="Colégio Stagio">
+  <defs>
+    <filter id="remove-white" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3" result="white-key"/>
+      <feComponentTransfer in="white-key">
+        <feFuncA type="linear" slope="15" intercept="-0.15"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <image href="logo-stagio.svg" x="0" y="0" width="485" height="160" preserveAspectRatio="xMidYMid meet" filter="url(#remove-white)"/>
+</svg>
