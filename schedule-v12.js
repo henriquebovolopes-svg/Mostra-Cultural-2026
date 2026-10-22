@@ -1,6 +1,8 @@
 const BLOCK_1='10h00–11h30';
 const BLOCK_2='11h30–13h00';
-const featuredCss=document.createElement('link');featuredCss.rel='stylesheet';featuredCss.href='featured-carousel-v1.css?v=24';document.head.appendChild(featuredCss);
+const featuredCss=document.createElement('link');featuredCss.rel='stylesheet';featuredCss.href='featured-carousel-v1.css?v=26';document.head.appendChild(featuredCss);
+const brandLogo=document.querySelector('.brandLogo');
+if(brandLogo){brandLogo.src='logo-stagio.svg?v=26';brandLogo.style.background='transparent';brandLogo.style.border='0';brandLogo.style.boxShadow='none';brandLogo.style.objectFit='contain';brandLogo.style.filter='drop-shadow(0 3px 8px rgba(255,255,255,.28)) drop-shadow(0 7px 15px rgba(0,60,105,.12))';}
 let workReturnScreen='explore';
 function isPermanent(r){const h=(r.horario||'').replace('–','-');return norm(r.grupo)==='exposicao permanente'||h==='10h00-13h00'}
 function isBlock(r){return r.horario===BLOCK_1||r.horario===BLOCK_2}
