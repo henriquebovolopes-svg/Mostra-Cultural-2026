@@ -5,10 +5,10 @@
   "scope": "./",
   "display": "standalone",
   "background_color": "#f4f7fb",
-  "theme_color": "#071b4a",
+  "theme_color": "#003c69",
   "lang": "pt-BR",
   "description": "Guia digital da Mostra Cultural 2026: alunos, trabalhos, salas e horários.",
   "icons": [
-    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
   ]
 }
