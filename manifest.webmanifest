@@ -9,6 +9,7 @@
   "lang": "pt-BR",
   "description": "Guia digital da Mostra Cultural 2026: alunos, trabalhos, salas e horários.",
   "icons": [
-    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+    {"src":"mc2026-icon-v2.svg","sizes":"any","type":"image/svg+xml","purpose":"any"},
+    {"src":"mc2026-icon-v2.svg","sizes":"any","type":"image/svg+xml","purpose":"maskable"}
   ]
 }
