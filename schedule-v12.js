@@ -1,8 +1,12 @@
 const BLOCK_1='10h00–11h30';
 const BLOCK_2='11h30–13h00';
+let workReturnScreen='explore';
 function isPermanent(r){const h=(r.horario||'').replace('–','-');return norm(r.grupo)==='exposicao permanente'||h==='10h00-13h00'}
 function isBlock(r){return r.horario===BLOCK_1||r.horario===BLOCK_2}
 priority=r=>(isBlock(r)?220:0)+(r.titulo&&r.sala&&r.horario?100:0)+(r.sala&&r.horario?40:0)+(r.titulo?20:0)+(r.grupo?8:0)+(r.sala?5:0)+(r.horario?5:0)+(isPermanent(r)?2:0);
+const baseOpenWork=openWork;
+openWork=function(encoded){workReturnScreen=document.querySelector('.screen.on')?.id||'explore';baseOpenWork(encoded)};
+function backFromWork(){show(workReturnScreen&&workReturnScreen!=='workdetail'?workReturnScreen:'explore')}
 function scheduleCard(p){const r=p.ref;return `<button class="scheduleWork projectBtn" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${r.sala?`Sala ${esc(r.sala)} • `:''}${esc(r.turma||'')}${r.grupo?` • ${esc(r.grupo)}`:''}</div></button>`}
 renderSchedule=function(){
   const permanentRows=rows.filter(isPermanent),permanentProjects=groupProjects(permanentRows).sort((a,b)=>String(a.ref.titulo).localeCompare(String(b.ref.titulo),'pt-BR')),permanentStudents=new Set(permanentRows.map(r=>norm(r.name))).size;
