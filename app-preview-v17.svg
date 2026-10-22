@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 1688" width="780" height="1688">
+<rect width="780" height="1688" fill="#f7f9fb"/>
+<rect x="28" y="28" width="724" height="1632" rx="56" fill="#fff" stroke="#dfe7ec" stroke-width="4"/>
+<path d="M28 28h724v300c-160-40-265-38-380 15C240 404 132 393 28 350z" fill="#003c69"/>
+<path d="M28 28h560c-110 36-180 92-260 130C220 210 120 190 28 166z" fill="#85c079" opacity=".95"/>
+<text x="84" y="112" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#fff">COLÉGIO STAGIO</text>
+<text x="84" y="205" font-family="Arial,sans-serif" font-size="62" font-weight="700" fill="#fff">Mostra Cultural</text>
+<text x="84" y="270" font-family="Arial,sans-serif" font-size="62" font-weight="700" fill="#fff">2026</text>
+<text x="84" y="320" font-family="Arial,sans-serif" font-size="26" fill="#fff">14 de novembro • 10h às 13h</text>
+<rect x="70" y="392" width="640" height="84" rx="30" fill="#fff" stroke="#dfe7ec" stroke-width="3"/>
+<text x="108" y="444" font-family="Arial,sans-serif" font-size="28" fill="#6f7e8a">🔎 Quem você veio encontrar?</text>
+<text x="70" y="555" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#358d5e">EXPERIÊNCIAS EM DESTAQUE</text>
+<text x="70" y="606" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#163247">Projetos em destaque</text>
+<rect x="70" y="650" width="640" height="190" rx="30" fill="#eef6ff" stroke="#dfe7ec"/>
+<text x="100" y="708" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#05666f">PROJETO EM DESTAQUE</text>
+<text x="100" y="760" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#163247">Soft Skills Quest</text>
+<text x="100" y="806" font-family="Arial,sans-serif" font-size="24" fill="#6f7e8a">Exposição permanente • 10h–13h</text>
+<rect x="70" y="870" width="300" height="150" rx="26" fill="#fff3f3" stroke="#dfe7ec"/>
+<text x="96" y="920" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#163247">TED-Ed</text>
+<text x="96" y="960" font-family="Arial,sans-serif" font-size="23" fill="#6f7e8a">Student Talks</text>
+<rect x="410" y="870" width="300" height="150" rx="26" fill="#eef9f2" stroke="#dfe7ec"/>
+<text x="436" y="920" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#163247">STEAM</text>
+<text x="436" y="960" font-family="Arial,sans-serif" font-size="22" fill="#6f7e8a">ODS</text>
+<rect x="70" y="1050" width="300" height="150" rx="26" fill="#f0f7ff" stroke="#dfe7ec"/>
+<text x="96" y="1100" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#163247">STEAM</text>
+<text x="96" y="1140" font-family="Arial,sans-serif" font-size="22" fill="#6f7e8a">Terras Raras</text>
+<rect x="410" y="1050" width="300" height="150" rx="26" fill="#f5f3ff" stroke="#dfe7ec"/>
+<text x="436" y="1100" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#163247">Humanidades</text>
+<text x="436" y="1140" font-family="Arial,sans-serif" font-size="22" fill="#6f7e8a">e Linguagens</text>
+<text x="70" y="1298" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#358d5e">ACESSO RÁPIDO</text>
+<rect x="70" y="1330" width="640" height="190" rx="30" fill="#fff" stroke="#dfe7ec" stroke-width="2"/>
+<text x="105" y="1392" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#163247">👤 Encontrar aluno</text>
+<text x="105" y="1445" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#163247">🕐 Programação</text>
+<text x="105" y="1498" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#163247">📍 Salas</text>
+<rect x="70" y="1570" width="640" height="1" fill="#dfe7ec"/>
+<text x="390" y="1620" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#6f7e8a">Guia Digital • Mostra Cultural 2026</text>
+</svg>
