@@ -1,0 +1,1 @@
+Assets visuais oficiais do Soft Skills Quest.
