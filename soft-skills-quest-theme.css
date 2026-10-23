@@ -23,3 +23,8 @@ body{background:#efe1bd}
 .badge-learning{aspect-ratio:580/98}.badge-learning img{transform:translateY(-72.55%)}
 .badge-final{aspect-ratio:580/97}.badge-final img{transform:translateY(-85.62%)}
 @media(max-width:600px){.hero-logo-graphic{width:100%;margin-top:10px}.title-badge{width:min(560px,96vw)!important;max-width:96vw!important;margin-bottom:32px!important}}
+
+/* FIX v41 — renderização robusta do logo no iOS/Safari */
+.hero-logo-graphic{display:none!important}
+.hero-kicker::after{content:"";display:block;width:min(760px,96%);aspect-ratio:2172/724;margin:18px auto 18px;background-image:url("./assets/ssq/soft-skills-quest-logo.webp?v=41"),url("https://raw.githubusercontent.com/henriquebovolopes-svg/Mostra-Cultural-2026/main/assets/ssq/soft-skills-quest-logo.webp?v=41");background-repeat:no-repeat,no-repeat;background-position:center,center;background-size:contain,contain;filter:drop-shadow(0 8px 0 rgba(70,42,5,.5)) drop-shadow(0 15px 20px rgba(0,0,0,.25))}
+@media(max-width:600px){.hero-kicker::after{width:100%;margin:16px auto 18px}}
