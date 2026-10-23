@@ -3,147 +3,176 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07382d">
-<meta name="description" content="Soft Skills Quest — uma jornada gamificada do 2º Ensino Médio do Colégio Stagio.">
+<meta name="theme-color" content="#071426">
+<meta name="description" content="Soft Skills Quest — percorra o tabuleiro, os mundos, missões e aprendizagens do projeto do 2º Ensino Médio do Colégio Stagio.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="soft-skills-quest.css">
-<link rel="stylesheet" href="soft-skills-quest-theme.css">
+<link rel="stylesheet" href="soft-skills-quest.css?v=50">
 <title>Soft Skills Quest — Mostra Cultural 2026</title>
 </head>
 <body>
-<div class="pixel-grid" aria-hidden="true"></div>
-<header class="questbar">
-  <a class="back" href="index.html#projects">← MOSTRA 2026</a>
-  <a class="questbrand" href="#top"><span>✦</span> SOFT SKILLS QUEST</a>
-  <a class="quick" href="#visitor-guide">START ↓</a>
+<header class="topbar">
+  <a href="index.html#projects">← MOSTRA 2026</a>
+  <span>SOFT SKILLS QUEST</span>
+  <a href="#board">MAPA ↓</a>
 </header>
-<nav class="tour-nav" aria-label="Navegação do Soft Skills Quest">
-  <a href="#visitor-guide">⌂ Visão geral</a>
-  <a href="#journey">▧ Jornada</a>
-  <a href="#scout">♟ Scout</a>
-  <a href="#missions">▤ Materiais</a>
-  <a href="#cards">✦ Cartas</a>
-  <a href="#skills">★ Aprendizagens</a>
-  <a href="#finalquest">⚑ Final Quest</a>
+
+<nav class="quicknav" aria-label="Navegação do Soft Skills Quest">
+  <a href="#board">MAPA</a><a href="#score">PLACAR</a><a href="#world1">WORLD 1</a><a href="#world2">WORLD 2</a><a href="#world3">WORLD 3</a><a href="#world4">WORLD 4</a><a href="#pins">PINS</a><a href="#missions">MISSÕES</a><a href="#learning">APRENDIZAGENS</a><a href="#finalquest">FINAL QUEST</a>
 </nav>
+
 <main>
-<section class="hero" id="top">
-  <div class="hero-stage">
-    <div class="hero-main reveal">
-      <div class="hero-kicker">2º ENSINO MÉDIO · COLÉGIO STAGIO · 2026</div>
-      <img class="hero-logo-graphic" src="assets/ssq/soft-skills-quest-logo.webp" alt="Soft Skills Quest">
-      <div class="hero-subtitle">A aventura foi a aula.</div>
-      <p class="hero-intro-new">Uma jornada gamificada em que os estudantes desenvolveram comunicação, colaboração, investigação, autonomia e criatividade por meio de missões, personagens, desafios e experiências reais.</p>
-      <div class="hero-actions">
-        <a class="primary-btn" href="#visitor-guide">✦ COMEÇAR A VISITA →</a>
-        <a class="secondary-btn" href="#how">▤ ENTENDER O PROJETO →</a>
-      </div>
+<section class="board-hero" id="board">
+  <div class="board-intro">
+    <div>
+      <p class="eyebrow">2º ENSINO MÉDIO · COLÉGIO STAGIO · 2026</p>
+      <h1>ENTRE NO TABULEIRO</h1>
+      <p>O Soft Skills Quest foi vivido como uma campanha. Explore o mapa para conhecer os squads, os quatro mundos, os nove levels, as Boss Battles, os pins e a Final Quest.</p>
     </div>
-    <aside class="hero-companion reveal">
-      <img src="assets/ssq/scout-fieldscan.webp" alt="Scout no Level 4 — Field Scan, Mundo 2 do Soft Skills Quest">
-      <div class="hero-card-label">SCOUT · THE FIELD GUIDE · WORLD 2</div>
-    </aside>
+    <button id="openBoard" class="pixel-button">⛶ EXPLORAR EM TELA CHEIA</button>
   </div>
-</section>
 
-<section class="section parchment" id="visitor-guide">
-  <div class="title-badge badge-overview" role="img" aria-label="Visão geral"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="intro-grid">
-    <div class="reveal"><h2>O que é o<br>Soft Skills Quest?</h2></div>
-    <div class="large-copy reveal">
-      <p>O <strong>Soft Skills Quest</strong> foi um projeto gamificado do 2º Ensino Médio em que a aula foi organizada como uma campanha de jogo.</p>
-      <p>Em vez de apenas falar sobre habilidades socioemocionais, os estudantes precisaram <strong>colocá-las em prática</strong> em missões, decisões, conversas, investigações e experiências concretas.</p>
+  <div class="board-frame">
+    <div class="board-stage">
+      <img src="assets/ssq/soft-skills-quest-board.webp?v=50" alt="Tabuleiro oficial do Soft Skills Quest com placar, quatro mundos, nove etapas, pins, missões de campo e Final Quest">
+      <a class="hotspot score-hotspot" href="#score" aria-label="Placar dos squads"><span>PLACAR</span></a>
+      <a class="hotspot h1" href="#level1" aria-label="Level 1 Sem Roteiro"><span>1</span></a>
+      <a class="hotspot h2" href="#level2" aria-label="Level 2 Ciência é Feita por Pessoas"><span>2</span></a>
+      <a class="hotspot h3" href="#level3" aria-label="Level 3 Diga Não"><span>3</span></a>
+      <a class="hotspot h4" href="#level4" aria-label="Level 4 Field Scan"><span>4</span></a>
+      <a class="hotspot h5" href="#level5" aria-label="Level 5 Da Rua para o Jogo"><span>5</span></a>
+      <a class="hotspot h6" href="#level6" aria-label="Level 6 Expedition"><span>6</span></a>
+      <a class="hotspot h7" href="#level7" aria-label="Level 7 Me Convence"><span>7</span></a>
+      <a class="hotspot h8" href="#level8" aria-label="Level 8 Create the Game"><span>8</span></a>
+      <a class="hotspot h9" href="#level9" aria-label="Level 9 Beta Test"><span>9</span></a>
+      <a class="hotspot pins-hotspot" href="#pins" aria-label="Pins de conquista"><span>PINS</span></a>
+      <a class="hotspot missions-hotspot" href="#missions" aria-label="Missões de campo"><span>MISSÕES</span></a>
+      <a class="hotspot final-hotspot" href="#finalquest" aria-label="Final Quest"><span>FINAL</span></a>
     </div>
   </div>
-  <div class="learning-loop reveal"><span>DESAFIO</span><b>→</b><span>EXPERIÊNCIA</span><b>→</b><span>DECISÃO</span><b>→</b><span>REFLEXÃO</span><b>→</b><span>APRENDIZAGEM</span></div>
-  <div class="plain-language reveal"><strong>Em outras palavras:</strong><p>as soft skills não foram apresentadas como uma lista para decorar. Elas apareceram quando o grupo precisou agir.</p></div>
+  <p class="tap-hint">Toque nos pontos do mapa para ir diretamente a cada fase.</p>
 </section>
 
-<section class="section dark-section" id="journey">
-  <div class="title-badge badge-journey" role="img" aria-label="Mapa da jornada"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="section-heading reveal"><h2>Uma campanha construída em mundos, missões e encontros.</h2><p>Cada mundo mudou o tipo de desafio. O que começou dentro da sala passou a exigir contato com pessoas, lugares e problemas do mundo real.</p></div>
-  <div class="world-path">
-    <article class="world-card green reveal"><div class="world-id">MUNDO 01 <span>PIN · VOZ</span></div><h3>SE VIRA</h3><p>Entrar no jogo, participar, se posicionar e encontrar a própria voz dentro do grupo.</p><ul><li>Sem Roteiro</li><li>Ciência é feita por pessoas</li><li>YesMan — O preço do sim</li></ul></article>
-    <article class="world-card purple reveal"><div class="world-id">MUNDO 02 <span>PIN · EXPLORAÇÃO</span></div><h3>LEIA O MUNDO</h3><p>O jogo sai da sala. Os squads observam, perguntam, registram e conectam aprendizagem com pessoas, lugares e realidades.</p><ul><li>Field Scan</li><li>Expedição: Vozes do Bairro</li><li>Mission Replay</li></ul></article>
-    <article class="world-card red reveal"><div class="world-id">MUNDO 03 <span>EM JOGO</span></div><h3>ME CONVENCE</h3><p>Observação e experiência começam a se transformar em argumento, persuasão, criação e autoria.</p><ul><li>Persuadir</li><li>Criar</li><li>Testar e revisar</li></ul></article>
-    <article class="world-card gold reveal"><div class="world-id">FINAL QUEST <span>MOSTRA CULTURAL</span></div><h3>COMPARTILHE</h3><p>A fase em que os estudantes deixam de apenas cumprir missões e passam a apresentar ao público aquilo que construíram.</p><div class="transform-line">PLAYER → CREATOR → GAME MASTER</div></article>
+<section class="board-section" id="score">
+  <div class="panel-title"><span>★</span> PLACAR DOS SQUADS <span>★</span></div>
+  <div class="score-layout">
+    <div class="scoreboard">
+      <div class="score-row"><b>1</b><span class="avatar">🧑🏻‍💻</span><strong>SQUAD PIXEL</strong><i>★</i></div>
+      <div class="score-row"><b>2</b><span class="avatar">🧙🏽</span><strong>MESSIAS DO REINO</strong><i>★</i></div>
+      <div class="score-row"><b>3</b><span class="avatar">🥷</span><strong>SQUAD SHADOW</strong><i>★</i></div>
+      <div class="score-row"><b>4</b><span class="avatar">🧑🏻‍🎤</span><strong>SQUAD WAVE</strong><i>★</i></div>
+      <div class="score-row"><b>5</b><span class="avatar">🧑🏼</span><strong>SQUAD STORM</strong><i>★</i></div>
+      <div class="score-row"><b>6</b><span class="avatar">🧑🏾</span><strong>SQUAD THUNDER</strong><i>★</i></div>
+      <div class="score-row"><b>7</b><span class="avatar">🧑🏻‍🦱</span><strong>SQUAD BLAZE</strong><i>★</i></div>
+    </div>
+    <div class="explain-card"><span class="small-label">COMO FUNCIONAVA</span><h2>Sete equipes. Uma campanha compartilhada.</h2><p>Os estudantes foram organizados em squads. Estrelas, pins e conquistas ajudavam a tornar o progresso visível, mas o objetivo central era mobilizar habilidades em situações cada vez mais complexas.</p><div class="legend-star">★ <span>ESTRELAS = PONTUAÇÃO E PROGRESSO DO SQUAD</span></div></div>
   </div>
 </section>
 
-<section class="section parchment scout-section" id="scout">
-  <div class="title-badge badge-companion" role="img" aria-label="Companheiro de aventura"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="scout-layout">
-    <div class="scout-visual reveal"><button class="image-button" data-image="assets/ssq/scout-fieldscan.webp" data-caption="Level 4 — Field Scan · World 2 — Explore the World"><img src="assets/ssq/scout-fieldscan.webp" alt="Scout na ficha real do Level 4 Field Scan"></button><div class="scout-stamp">THE FIELD GUIDE</div></div>
-    <div class="scout-copy reveal"><div class="mini-title">SCOUT · WORLD 2</div><h2>O guia que ensina a olhar antes de responder.</h2><p>Scout é o companheiro de aventura do Mundo 2. Ele representa <strong>curiosidade, observação, investigação e abertura para o mundo real</strong>.</p><p>Sua função é ajudar os squads a olhar melhor, fazer boas perguntas, conversar com pessoas e transformar experiências em aprendizagem.</p><blockquote>“Exploradores não precisam saber tudo. Precisam aprender a observar.”</blockquote><div class="tags"><span>OBSERVAR</span><span>PERGUNTAR</span><span>ESCUTAR</span><span>INVESTIGAR</span><span>CONECTAR</span></div></div>
+<section class="world-section w1" id="world1">
+  <div class="world-ribbon">WORLD 1 — SE VIRA</div>
+  <div class="world-copy"><p>O começo da campanha: entrar no jogo, falar, colaborar, lidar com o inesperado e aprender que participar também exige posicionamento.</p></div>
+  <div class="levels">
+    <article id="level1" class="level-card"><span class="level-num">1</span><h3>SEM ROTEIRO</h3><p>Agir diante do inesperado e começar a construir autonomia dentro do squad.</p><div class="skill-tags"><span>VOZ</span><span>AUTONOMIA</span><span>COLABORAÇÃO</span></div></article>
+    <article id="level2" class="level-card"><span class="level-num">2</span><h3>CIÊNCIA É FEITA POR PESSOAS</h3><p>Construção da ponte de macarrão: planejamento, papéis, restrições, tentativa e cooperação.</p><div class="skill-tags"><span>ESTRATÉGIA</span><span>COOPERAÇÃO</span><span>RESOLUÇÃO</span></div></article>
+    <article id="level3" class="level-card"><span class="level-num">3</span><h3>DIGA NÃO</h3><p>O desafio YesMan colocou assertividade, diálogo, negociação e limites no centro da experiência.</p><div class="skill-tags"><span>ASSERTIVIDADE</span><span>ESCUTA</span><span>DECISÃO</span></div></article>
   </div>
 </section>
 
-<section class="section mission-section" id="missions">
-  <div class="title-badge badge-materials" role="img" aria-label="Materiais reais"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="section-heading reveal"><h2>As missões existiam no papel, no jogo e no mundo real.</h2><p>Estas são fichas usadas pelos próprios squads. Toque ou clique para ampliar.</p></div>
-  <div class="mission-gallery two-up">
-    <article class="mission-tile reveal"><button class="image-button" data-image="assets/ssq/scout-fieldscan.webp" data-caption="Level 4 — Field Scan · entrada do Mundo 2"><img src="assets/ssq/scout-fieldscan.webp" alt="Level 4 Field Scan — entrada do Mundo 2"></button><div class="mission-copy"><span>LEVEL 4</span><h3>Field Scan</h3><p>A entrada do Mundo 2 apresenta Scout e convida os estudantes a observar lugares, conversar com pessoas e investigar possibilidades.</p></div></article>
-    <article class="mission-tile reveal"><button class="image-button" data-image="assets/ssq/level5-expedicao.webp" data-caption="Level 5 — Expedição: Vozes do Bairro"><img src="assets/ssq/level5-expedicao.webp" alt="Level 5 — Expedição: Vozes do Bairro"></button><div class="mission-copy"><span>LEVEL 5</span><h3>Expedição: Vozes do Bairro</h3><p>Os estudantes observam, abordam, perguntam, registram e retornam, conectando o jogo ao território real da escola e do bairro.</p></div></article>
+<section class="world-section w2" id="world2">
+  <div class="world-ribbon">WORLD 2 — LEIA O MUNDO</div>
+  <div class="world-copy"><p>O tabuleiro sai da sala. Scout guia os squads para observar, abordar pessoas, formular perguntas, registrar evidências e conectar escola e mundo real.</p></div>
+  <div class="levels">
+    <article id="level4" class="level-card media-card"><span class="level-num">4</span><div><h3>FIELD SCAN</h3><p>A universidade vira campo de investigação. Os estudantes precisam observar o espaço, conversar e registrar evidências.</p><div class="skill-tags"><span>OBSERVAÇÃO</span><span>CURIOSIDADE</span><span>INVESTIGAÇÃO</span></div></div><button class="art-button" data-src="assets/ssq/scout-fieldscan.webp" data-caption="Level 4 — Field Scan"><img src="assets/ssq/scout-fieldscan.webp" alt="Ficha real do Level 4 Field Scan"></button></article>
+    <article id="level5" class="level-card"><span class="level-num">5</span><h3>DA RUA PARA O JOGO</h3><p>O entorno passa a ser lido como território de problemas, histórias, comportamentos e possibilidades.</p><div class="skill-tags"><span>LEITURA DE CONTEXTO</span><span>CONEXÃO</span><span>PERGUNTAS</span></div></article>
+    <article id="level6" class="level-card media-card"><span class="level-num">6</span><div><h3>EXPEDITION</h3><p>A Expedição: Vozes do Bairro exige abordagem respeitosa, entrevista, registro e retorno no tempo combinado.</p><div class="skill-tags"><span>COMUNICAÇÃO</span><span>ESCUTA</span><span>CAMPO</span></div></div><button class="art-button" data-src="assets/ssq/level5-expedicao.webp" data-caption="Expedição — Vozes do Bairro"><img src="assets/ssq/level5-expedicao.webp" alt="Ficha real da Expedição Vozes do Bairro"></button></article>
   </div>
 </section>
 
-<section class="section parchment" id="cards">
-  <div class="title-badge badge-cards" role="img" aria-label="Cartas do jogo"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="section-heading ink reveal"><h2>Cartas que colocam a decisão em jogo.</h2><p>As cartas não eram decoração. Elas regulavam escolhas, limites, negociação e participação dentro das dinâmicas.</p></div>
-  <div class="card-showcase">
-    <article class="real-card reveal"><button class="image-button" data-image="assets/ssq/carta-falar.webp" data-caption="Carta Falar — Direito do Squad"><img src="assets/ssq/carta-falar.webp" alt="Carta Falar — Direito do Squad"></button><div><span class="card-label green-label">DIREITO DO SQUAD</span><h3>Carta Falar</h3><p>Representa o direito do squad de conversar antes de decidir. A carta reforça diálogo, escuta e construção coletiva.</p><strong>“Podemos conversar antes de decidir.”</strong></div></article>
-    <article class="real-card reveal"><button class="image-button" data-image="assets/ssq/carta-veto.webp" data-caption="Carta Veto — Direito do Squad"><img src="assets/ssq/carta-veto.webp" alt="Carta Veto — Direito do Squad"></button><div><span class="card-label red-label">DIREITO DO SQUAD</span><h3>Carta Veto</h3><p>Representa o direito do squad de recusar uma ordem. A carta introduz limite, assertividade e decisão consciente.</p><strong>“Podemos dizer não.”</strong></div></article>
+<section class="world-section w3" id="world3">
+  <div class="world-ribbon">WORLD 3 — ME CONVENCE</div>
+  <div class="world-copy"><p>Depois de observar e investigar, os squads precisam transformar experiência em argumento, proposta, protótipo e criação.</p></div>
+  <div class="levels">
+    <article id="level7" class="level-card"><span class="level-num">7</span><h3>ME CONVENCE</h3><p>Persuadir sem apagar o outro: construir argumento, ler o interlocutor e sustentar escolhas.</p><div class="skill-tags"><span>PERSUASÃO</span><span>ARGUMENTAÇÃO</span><span>ESCUTA</span></div></article>
+    <article id="level8" class="level-card"><span class="level-num">8</span><h3>CREATE THE GAME</h3><p>Os estudantes deixam de apenas responder desafios e começam a desenhar a experiência que outra pessoa viverá.</p><div class="skill-tags"><span>CRIATIVIDADE</span><span>AUTORIA</span><span>DESIGN</span></div></article>
+    <article id="level9" class="level-card"><span class="level-num">9</span><h3>BETA TEST</h3><p>Testar, identificar falhas, ouvir feedback e revisar antes da apresentação pública.</p><div class="skill-tags"><span>FEEDBACK</span><span>REVISÃO</span><span>ADAPTAÇÃO</span></div></article>
   </div>
 </section>
 
-<section class="section reward-section" id="rewards">
-  <div class="section-heading reveal"><h2>Progresso & recompensa</h2><p>Estrelas, Mega Stars e pins ajudavam os estudantes a perceber a trajetória dos squads e o valor de suas ações.</p></div>
-  <div class="reward-grid">
-    <article class="reward-card reveal"><button class="image-button wide" data-image="assets/ssq/estrelas.webp" data-caption="Estrelas do Soft Skills Quest"><img src="assets/ssq/estrelas.webp" alt="Folha de estrelas do Soft Skills Quest"></button><h3>Estrelas</h3><p>Feedback visual e reconhecimento do progresso construído pelos squads ao longo da jornada.</p></article>
-    <article class="reward-card reveal"><button class="image-button wide" data-image="assets/ssq/megastar.webp" data-caption="Mega Star +10"><img src="assets/ssq/megastar.webp" alt="Insígnia Mega Star +10"></button><h3>Mega Star +10</h3><p>Um bônus especial usado como marca de conquista, destaque e avanço dentro do jogo.</p></article>
+<section class="world-section w4" id="world4">
+  <div class="world-ribbon">WORLD 4 — GAME MASTER</div>
+  <div class="boss-grid">
+    <div class="boss-card"><span>👾</span><h3>BOSS BATTLE 1</h3><p>Uma passagem de fase: integrar o que foi aprendido e responder a um desafio mais complexo.</p></div>
+    <div class="boss-card"><span>👹</span><h3>BOSS BATTLE 2</h3><p>A reta final: assumir autoria, preparar a experiência e conduzir outros jogadores.</p></div>
+    <div class="game-master-card"><span class="small-label">MUDANÇA DE PAPEL</span><h2>PLAYER → CREATOR → GAME MASTER</h2><p>No último mundo, o jogo se inverte. Os estudantes não apenas jogam: passam a criar, testar, organizar e apresentar uma experiência.</p></div>
   </div>
 </section>
 
-<section class="section parchment" id="how">
-  <div class="not-just-game reveal"><div>🎮</div><h2>Não era apenas um jogo.</h2><p>O jogo era a linguagem. A aprendizagem acontecia nas decisões, nas interações e nas experiências que os estudantes precisavam viver.</p></div>
-  <div class="translation-table reveal">
-    <div class="table-head"><span>NA QUEST</span><span>NA APRENDIZAGEM</span></div><div><b>SQUADS</b><span>trabalho em equipe e corresponsabilidade</span></div><div><b>MISSÕES</b><span>situações-problema que pedem ação</span></div><div><b>CARTAS</b><span>negociação, fala, limites e decisão</span></div><div><b>ESTRELAS</b><span>feedback e percepção de progresso</span></div><div><b>EVIDÊNCIAS</b><span>observação, registro e interpretação</span></div><div><b>SCOUT</b><span>mediação da investigação e curiosidade</span></div><div><b>MISSION REPLAY</b><span>reflexão sobre a ação</span></div><div><b>FINAL QUEST</b><span>autoria e apresentação pública</span></div>
+<section class="board-section" id="pins">
+  <div class="panel-title"><span>★</span> PINS DE CONQUISTA <span>★</span></div>
+  <div class="pins-grid">
+    <article><div class="pin p1">🎧</div><b>VOICE</b><p>Encontrar a voz e participar.</p></article>
+    <article><div class="pin p2">🌍</div><b>READ THE WORLD</b><p>Observar, perguntar e interpretar.</p></article>
+    <article><div class="pin p3">💬</div><b>PERSUADER</b><p>Argumentar e sustentar ideias.</p></article>
+    <article><div class="pin p4">🎮</div><b>GAME MASTER</b><p>Criar e conduzir experiências.</p></article>
+    <article><div class="pin p5">👑</div><b>FINAL QUEST</b><p>Compartilhar autoria com o público.</p></article>
   </div>
 </section>
 
-<section class="section skills-section" id="skills">
-  <div class="title-badge badge-learning" role="img" aria-label="Aprendizagens"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="section-heading reveal"><h2>O que foi colocado em prática?</h2><p>As habilidades abaixo não apareceram como conteúdos isolados. Elas foram mobilizadas sempre que os estudantes precisaram agir, perguntar, decidir, negociar, observar e criar.</p></div>
-  <div class="skills-grid">
-    <article class="skill-card reveal"><b>COMUNICAÇÃO</b><p>Expressar, escutar e ajustar a mensagem.</p></article><article class="skill-card reveal"><b>COLABORAÇÃO</b><p>Dividir responsabilidades e construir junto.</p></article><article class="skill-card reveal"><b>AUTONOMIA</b><p>Agir sem depender de uma instrução para cada passo.</p></article><article class="skill-card reveal"><b>PENSAMENTO CRÍTICO</b><p>Interpretar situações antes de responder.</p></article><article class="skill-card reveal"><b>ASSERTIVIDADE</b><p>Discordar, dizer não e sustentar posições.</p></article><article class="skill-card reveal"><b>INVESTIGAÇÃO</b><p>Observar pessoas, ambientes e problemas reais.</p></article><article class="skill-card reveal"><b>RESOLUÇÃO DE PROBLEMAS</b><p>Testar, falhar, adaptar e tentar novamente.</p></article><article class="skill-card reveal"><b>CRIATIVIDADE</b><p>Transformar ideias em experiências compartilháveis.</p></article>
-  </div>
-  <div class="thesis reveal">“Soft skills não são aprendidas quando alguém apenas explica o que elas são. Elas se desenvolvem quando precisamos usá-las.”</div>
-</section>
-
-<section class="section parchment route-section">
-  <div class="section-heading ink reveal"><h2>Da escola para o mundo real.</h2><p>O território da aprendizagem foi se ampliando ao longo da campanha.</p></div>
-  <div class="route reveal"><span>SALA DE AULA</span><b>→</b><span>LABORATÓRIO</span><b>→</b><span>UNIVERSIDADE</span><b>→</b><span>BAIRRO</span><b>→</b><span>MOSTRA CULTURAL</span></div>
-  <p class="route-copy reveal">Aos poucos, a aula deixou de caber apenas dentro da sala e passou a acontecer também em contato com lugares, pessoas e situações reais.</p>
-</section>
-
-<section class="section finalquest" id="finalquest">
-  <div class="title-badge badge-final" role="img" aria-label="Final Quest"><img src="assets/ssq/titles-atlas.webp" alt=""></div>
-  <div class="final-grid">
-    <div class="final-copy reveal"><div class="boss-stage">BOSS STAGE · MOSTRA CULTURAL 2026</div><h2>VOCÊ ESTÁ NA ÚLTIMA FASE.</h2><p>A Mostra Cultural é o momento em que os estudantes deixam de apenas jogar e passam a apresentar ao público aquilo que construíram ao longo da campanha.</p><div class="transform"><span>PLAYER</span><b>→</b><span>CREATOR</span><b>→</b><span>GAME MASTER</span></div></div>
-    <aside class="final-card reveal"><div class="final-card-head">MISSION OBJECTIVE</div><p>Transformar a experiência vivida em uma apresentação autoral, compreensível e compartilhável.</p><div class="mission-check"><span>✓</span> experimentar</div><div class="mission-check"><span>✓</span> refletir</div><div class="mission-check"><span>✓</span> criar</div><div class="mission-check"><span>★</span> compartilhar</div></aside>
+<section class="board-section" id="missions">
+  <div class="panel-title"><span>★</span> MISSÕES DE CAMPO <span>★</span></div>
+  <div class="field-grid">
+    <article><button class="art-button" data-src="assets/ssq/scout-fieldscan.webp" data-caption="Field Scan — USP"><img src="assets/ssq/scout-fieldscan.webp" alt="Material real da missão Field Scan"></button><h3>FIELD SCAN</h3><p>Observar um novo território, conversar com pessoas e coletar evidências com intencionalidade.</p></article>
+    <article><button class="art-button" data-src="assets/ssq/level5-expedicao.webp" data-caption="Expedition — Vozes do Bairro"><img src="assets/ssq/level5-expedicao.webp" alt="Material real da missão Expedition"></button><h3>EXPEDITION</h3><p>Abordar pessoas do bairro, entrevistar, registrar e transformar a experiência em repertório.</p></article>
   </div>
 </section>
 
-<section class="credits section"><div class="credits-box reveal"><div class="tiny">QUEST LOG · 2026</div><h2>SOFT SKILLS QUEST</h2><p>2º Ensino Médio · Colégio Stagio</p><p class="credit-line">Concepção e desenvolvimento: <strong>Prof. Henrique Lopes</strong></p><div class="complete">QUEST COMPLETE?</div><p>Algumas das habilidades mais importantes do jogo só começam a fazer sentido depois que ele termina.</p><a href="index.html">← VOLTAR AO GUIA DA MOSTRA</a></div></section>
+<section class="board-section" id="cards">
+  <div class="panel-title"><span>★</span> CARTAS & RECOMPENSAS <span>★</span></div>
+  <div class="artifact-grid">
+    <article><button class="art-button" data-src="assets/ssq/carta-falar.webp" data-caption="Carta Falar"><img src="assets/ssq/carta-falar.webp" alt="Carta Falar"></button><h3>FALAR</h3><p>Direito de conversar antes de decidir.</p></article>
+    <article><button class="art-button" data-src="assets/ssq/carta-veto.webp" data-caption="Carta Veto"><img src="assets/ssq/carta-veto.webp" alt="Carta Veto"></button><h3>VETO</h3><p>Direito de dizer não e estabelecer limites.</p></article>
+    <article><button class="art-button" data-src="assets/ssq/estrelas.webp" data-caption="Estrelas"><img src="assets/ssq/estrelas.webp" alt="Estrelas de pontuação"></button><h3>ESTRELAS</h3><p>Feedback visível do progresso.</p></article>
+    <article><button class="art-button" data-src="assets/ssq/megastar.webp" data-caption="Mega Star +10"><img src="assets/ssq/megastar.webp" alt="Mega Star +10"></button><h3>MEGA STAR</h3><p>Conquista especial da campanha.</p></article>
+  </div>
+</section>
+
+<section class="learning-section" id="learning">
+  <div class="panel-title"><span>★</span> O QUE O TABULEIRO ENSINA <span>★</span></div>
+  <p class="learning-lead">O jogo era a linguagem. A aprendizagem acontecia nas decisões tomadas para avançar.</p>
+  <div class="learning-worlds">
+    <article><span>WORLD 1</span><h3>VOZ & AÇÃO</h3><p>Comunicação · colaboração · autonomia · assertividade</p></article>
+    <article><span>WORLD 2</span><h3>LEITURA DO MUNDO</h3><p>Observação · investigação · escuta · curiosidade</p></article>
+    <article><span>WORLD 3</span><h3>PERSUASÃO & CRIAÇÃO</h3><p>Argumentação · criatividade · prototipagem · feedback</p></article>
+    <article><span>WORLD 4</span><h3>AUTORIA</h3><p>Liderança · curadoria · responsabilidade · apresentação pública</p></article>
+  </div>
+  <blockquote>“Soft skills não são aprendidas quando alguém apenas explica o que elas são. Elas se desenvolvem quando precisamos usá-las.”</blockquote>
+</section>
+
+<section class="final-section" id="finalquest">
+  <div class="final-board">
+    <span class="small-label">BOSS STAGE · MOSTRA CULTURAL · 14.11.26</span>
+    <h2>FINAL QUEST</h2>
+    <p>A fase final da campanha: os estudantes deixam de apenas jogar e passam a compartilhar publicamente aquilo que investigaram, criaram, testaram e aprenderam.</p>
+    <div class="final-transform"><span>PLAYER</span><b>→</b><span>CREATOR</span><b>→</b><span>GAME MASTER</span></div>
+    <a href="#board" class="pixel-button">↑ VOLTAR AO TABULEIRO</a>
+  </div>
+</section>
 </main>
 
-<div class="modal" id="imageModal" aria-hidden="true"><button class="modal-close" aria-label="Fechar imagem">×</button><figure><img id="modalImage" alt=""><figcaption id="modalCaption"></figcaption></figure></div>
+<footer><b>SOFT SKILLS QUEST · 2026</b><span>2º Ensino Médio · Colégio Stagio · Concepção e desenvolvimento: Prof. Henrique Lopes</span><a href="index.html">← Guia da Mostra Cultural</a></footer>
+
+<div class="board-modal" id="boardModal" aria-hidden="true"><button id="closeBoard" aria-label="Fechar tabuleiro">×</button><div class="board-modal-scroll"><img src="assets/ssq/soft-skills-quest-board.webp?v=50" alt="Tabuleiro ampliado do Soft Skills Quest"></div></div>
+<div class="art-modal" id="artModal" aria-hidden="true"><button id="closeArt" aria-label="Fechar imagem">×</button><figure><img id="artModalImg" alt=""><figcaption id="artModalCaption"></figcaption></figure></div>
+
 <script>
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('seen')}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-const modal=document.getElementById('imageModal'),modalImg=document.getElementById('modalImage'),modalCaption=document.getElementById('modalCaption');
-function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
-document.querySelectorAll('.image-button').forEach(btn=>btn.addEventListener('click',()=>{modalImg.src=btn.dataset.image;modalImg.alt=btn.dataset.caption||'Material do Soft Skills Quest';modalCaption.textContent=btn.dataset.caption||'';modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}));
-document.querySelector('.modal-close').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+const boardModal=document.getElementById('boardModal');
+document.getElementById('openBoard').addEventListener('click',()=>{boardModal.classList.add('open');boardModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')});
+document.getElementById('closeBoard').addEventListener('click',()=>{boardModal.classList.remove('open');boardModal.setAttribute('aria-hidden','true');document.body.classList.remove('locked')});
+const artModal=document.getElementById('artModal'),artImg=document.getElementById('artModalImg'),artCap=document.getElementById('artModalCaption');
+document.querySelectorAll('.art-button').forEach(btn=>btn.addEventListener('click',()=>{artImg.src=btn.dataset.src;artImg.alt=btn.dataset.caption||'Material do Soft Skills Quest';artCap.textContent=btn.dataset.caption||'';artModal.classList.add('open');artModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')}));
+document.getElementById('closeArt').addEventListener('click',()=>{artModal.classList.remove('open');artModal.setAttribute('aria-hidden','true');document.body.classList.remove('locked')});
+[boardModal,artModal].forEach(m=>m.addEventListener('click',e=>{if(e.target===m){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.classList.remove('locked')}}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){boardModal.classList.remove('open');artModal.classList.remove('open');document.body.classList.remove('locked')}});
 </script>
 </body>
 </html>
