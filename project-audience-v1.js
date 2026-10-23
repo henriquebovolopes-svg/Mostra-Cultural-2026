@@ -58,3 +58,8 @@ function buildFairMap(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFairMap()});
 buildFairMap();
+
+// Programação específica por sala
+const roomProgramModule=document.createElement('script');
+roomProgramModule.src='room-program-v1.js?v=38';
+document.body.appendChild(roomProgramModule);
