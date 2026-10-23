@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+<title id="title">Soft Skills Quest</title><desc id="desc">Logotipo do Soft Skills Quest em verde e dourado com coroa e estrelas.</desc>
+<defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2a1"/><stop offset=".38" stop-color="#ffd34f"/><stop offset=".7" stop-color="#e99400"/><stop offset="1" stop-color="#9b5300"/></linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#165a35"/><stop offset="1" stop-color="#06321f"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="5" flood-color="#000" flood-opacity=".55"/></filter>
+</defs>
+<g filter="url(#shadow)">
+  <path d="M75 102H825L785 139l40 39H75l40-39z" fill="url(#green)" stroke="#0b1d15" stroke-width="10"/>
+  <path d="M160 78H740v146H160z" rx="20" fill="#0a3e27" stroke="#d79b13" stroke-width="7"/>
+  <path d="M172 90H728v122H172z" rx="14" fill="none" stroke="#ffd75b" stroke-width="2" opacity=".8"/>
+  <g fill="url(#gold)" stroke="#3a2100" stroke-width="7" stroke-linejoin="round">
+    <path d="M403 55l23 20 24-39 24 39 23-20 11 48H392z"/>
+    <circle cx="450" cy="47" r="8"/><circle cx="404" cy="55" r="7"/><circle cx="497" cy="55" r="7"/>
+  </g>
+  <g fill="url(#gold)" stroke="#151008" stroke-width="9" paint-order="stroke fill" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-weight="900" text-anchor="middle" letter-spacing="2">
+    <text x="450" y="150" font-size="88">SOFT SKILLS</text>
+    <text x="450" y="213" font-size="68">QUEST</text>
+  </g>
+  <g fill="#ffd84d" stroke="#3b2100" stroke-width="3">
+    <path d="M120 112l8 18 18 8-18 8-8 18-8-18-18-8 18-8z"/><path d="M780 112l8 18 18 8-18 8-8 18-8-18-18-8 18-8z"/>
+    <path d="M320 202l6 13 13 6-13 6-6 13-6-13-13-6 13-6z"/><path d="M580 202l6 13 13 6-13 6-6 13-6-13-13-6 13-6z"/>
+  </g>
+</g>
+</svg>
