@@ -14,6 +14,7 @@ roomProgramStyle.textContent=`
 .roomTimeSection .scheduleList{margin-top:0}
 .roomEmpty{padding:12px;border-radius:12px;background:#f7f9fa;color:var(--muted);font-size:11.5px;line-height:1.4}
 .roomDirectLink{display:inline-flex;margin-top:12px;border:0;background:none;color:var(--blue);font-size:11px;font-weight:900;padding:0;cursor:pointer}
+.roomProgramCard .meta{margin-top:6px}
 @media(min-width:640px){.roomProgram{max-width:680px;margin-left:auto;margin-right:auto}.roomProgramHero{padding:22px}.roomTimeSection{padding:18px}}
 `;
 document.head.appendChild(roomProgramStyle);
@@ -31,8 +32,12 @@ function roomDisplayName(room){
 function roomScheduleProjects(room,filterFn){
   return groupProjects(rows.filter(r=>norm(r.sala)===norm(room)&&filterFn(r))).sort((a,b)=>String(a.ref.titulo||'').localeCompare(String(b.ref.titulo||''),'pt-BR'));
 }
+function roomProgramCard(p){
+  const r=p.ref,context=publicContext(r);
+  return `<button class="scheduleWork projectBtn roomProgramCard" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${esc(context)}${r.grupo?`${context?' • ':''}${esc(r.grupo)}`:''}</div></button>`;
+}
 function roomScheduleList(projects){
-  return projects.length?`<div class="scheduleList">${projects.map(scheduleCard).join('')}</div>`:'<div class="roomEmpty">Nenhuma atividade cadastrada neste horário para esta sala.</div>';
+  return projects.length?`<div class="scheduleList">${projects.map(roomProgramCard).join('')}</div>`:'<div class="roomEmpty">Nenhuma atividade cadastrada neste horário para esta sala.</div>';
 }
 function roomTimeSection(label,time,projects,kind=''){
   return `<section class="roomTimeSection ${kind}"><div class="roomTimeHead"><div><div class="lbl">${esc(label)}</div><h3>${esc(time)}</h3></div><span>${projects.length} trabalho${projects.length===1?'':'s'}</span></div>${roomScheduleList(projects)}</section>`;
@@ -40,7 +45,8 @@ function roomTimeSection(label,time,projects,kind=''){
 function roomDirectUrl(room){
   const u=new URL(location.href);u.search='';u.searchParams.set('sala',room);return u.pathname+u.search;
 }
-async function copyRoomLink(room){
+async function copyRoomLink(encoded){
+  const room=decodeURIComponent(encoded);
   const url=`${location.origin}${location.pathname}?sala=${encodeURIComponent(room)}`;
   try{await navigator.clipboard.writeText(url);alert('Link da programação da sala copiado!')}catch(e){}
 }
