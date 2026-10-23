@@ -21,12 +21,12 @@ scheduleTabsStyle.textContent=`
 `;
 document.head.appendChild(scheduleTabsStyle);
 
-let activeScheduleTab='permanent';
+let activeScheduleTab='b1';
 
 function scheduleTabMeta(tab){
   if(tab==='b1')return{title:'Bloco 1',time:'10h00–11h30'};
   if(tab==='b2')return{title:'Bloco 2',time:'11h30–13h00'};
-  return{title:'Atividades permanentes',time:'10h00–13h00'};
+  return{title:'Exposições permanentes',time:'10h00–13h00'};
 }
 
 function ensureScheduleTabs(){
@@ -39,7 +39,7 @@ function ensureScheduleTabs(){
     wrap=document.createElement('div');
     wrap.id='scheduleTabsWrap';
     wrap.className='scheduleTabsWrap';
-    wrap.innerHTML=`<p class="scheduleTabsIntro">A programação está organizada por modalidade e horário.</p><div class="scheduleTabs" role="tablist" aria-label="Tipo de programação"><button class="scheduleTab" data-tab="permanent" role="tab" onclick="setScheduleTab('permanent')"><strong>Atividades permanentes</strong><small>10h00–13h00</small></button><button class="scheduleTab" data-tab="b1" role="tab" onclick="setScheduleTab('b1')"><strong>Bloco 1</strong><small>10h00–11h30</small></button><button class="scheduleTab" data-tab="b2" role="tab" onclick="setScheduleTab('b2')"><strong>Bloco 2</strong><small>11h30–13h00</small></button></div><div id="scheduleTabSummary" class="scheduleTabSummary"></div>`;
+    wrap.innerHTML=`<p class="scheduleTabsIntro">A programação está organizada por modalidade e horário.</p><div class="scheduleTabs" role="tablist" aria-label="Tipo de programação"><button class="scheduleTab" data-tab="b1" role="tab" onclick="setScheduleTab('b1')"><strong>Bloco 1</strong><small>10h00–11h30</small></button><button class="scheduleTab" data-tab="b2" role="tab" onclick="setScheduleTab('b2')"><strong>Bloco 2</strong><small>11h30–13h00</small></button><button class="scheduleTab" data-tab="permanent" role="tab" onclick="setScheduleTab('permanent')"><strong>Exposições permanentes</strong><small>10h00–13h00</small></button></div><div id="scheduleTabSummary" class="scheduleTabSummary"></div>`;
     const permanent=document.getElementById('permanent');
     sec.insertBefore(wrap,permanent||sec.firstChild);
   }
@@ -47,7 +47,7 @@ function ensureScheduleTabs(){
 }
 
 function setScheduleTab(tab){
-  if(!['permanent','b1','b2'].includes(tab))tab='permanent';
+  if(!['permanent','b1','b2'].includes(tab))tab='b1';
   activeScheduleTab=tab;
   ensureScheduleTabs();
   ['permanent','b1','b2'].forEach(id=>{
