@@ -13,15 +13,27 @@ const audienceStyle=document.createElement('style');audienceStyle.textContent=`
 const PROJECT_AUDIENCE_MAP={
   'objetivos de desenvolvimento sustentavel':'6º ao 8º ano',
   'terras raras':'9º ano',
-  'soft skills quest':'2º ano do Ensino Médio',
+  'desenvolvimento de aplicativos':'1º ano do Ensino Médio',
   'ted-ed student talks':'1º ano do Ensino Médio',
-  'hard skills':'Ensino Médio',
+  'experimentos biotecnologicos em laboratorio':'2º ano do Ensino Médio',
+  'soft skills quest':'2º ano do Ensino Médio',
   'arquitetura da distincao':'Ensino Médio • Itinerário',
   'a ciencia da felicidade':'Ensino Médio • Itinerário'
 };
+const PROJECT_SERIES_ORDER={
+  'objetivos de desenvolvimento sustentavel':10,
+  'terras raras':20,
+  'desenvolvimento de aplicativos':30,
+  'ted-ed student talks':30,
+  'experimentos biotecnologicos em laboratorio':40,
+  'soft skills quest':40,
+  'a ciencia da felicidade':50,
+  'arquitetura da distincao':50
+};
 function projectAudience(name){return PROJECT_AUDIENCE_MAP[norm(name)]||''}
+function projectSeriesOrder(name){return PROJECT_SERIES_ORDER[norm(name)]??99}
 renderExplore=function(){
-  const list=classData();
+  const list=classData().sort((a,b)=>projectSeriesOrder(a.turma)-projectSeriesOrder(b.turma)||String(a.turma).localeCompare(String(b.turma),'pt-BR'));
   $('classList').innerHTML=list.length?list.map(c=>{
     const audience=projectAudience(c.turma);
     return `<div class="classCard"><button class="classBtn" onclick="openClass('${arg(c.turma)}')"><div class="className">${esc(c.turma)}</div><div class="classMeta"><span>👤 ${c.students} alunos</span><span>📚 ${c.projects} trabalhos</span>${audience?`<span class="projectAudience">🎓 ${esc(audience)}</span>`:''}</div></button></div>`;
