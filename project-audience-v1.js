@@ -1,6 +1,6 @@
 // Project audience labels for Explore cards
 const audienceStyle=document.createElement('style');audienceStyle.textContent=`
-.projectAudience{color:var(--green);font-weight:850}
+.projectAudience{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:5px 9px;border-radius:999px;background:#e7f3ea;color:#24724c;font-weight:850;font-size:11.5px;line-height:1.2}
 .map.fairMap{margin:18px 0 20px;padding:0;border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden;box-shadow:0 8px 24px rgba(0,60,105,.07)}
 .fairMapHead{padding:18px 18px 10px}.fairMapHead .ey{margin-bottom:4px}.fairMapHead h2{margin:0 0 5px;color:var(--blue);font-size:20px}.fairMapHead p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
 .fairMapTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:4px 14px 12px}.fairMapTab{border:1px solid #cfdde4;background:#f6f9fa;color:var(--blue);border-radius:12px;padding:10px 6px;font-weight:850;font-size:12px}.fairMapTab.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 5px 13px rgba(0,60,105,.15)}
@@ -17,18 +17,18 @@ const PROJECT_AUDIENCE_MAP={
   'ted-ed student talks':'1º ano do Ensino Médio',
   'experimentos biotecnologicos em laboratorio':'2º ano do Ensino Médio',
   'soft skills quest':'2º ano do Ensino Médio',
-  'arquitetura da distincao':'Ensino Médio • Itinerário',
-  'a ciencia da felicidade':'Ensino Médio • Itinerário'
+  'a ciencia da felicidade':'Ensino Médio • Itinerário',
+  'arquitetura da distincao':'Ensino Médio • Itinerário'
 };
 const PROJECT_SERIES_ORDER={
   'objetivos de desenvolvimento sustentavel':10,
   'terras raras':20,
   'desenvolvimento de aplicativos':30,
-  'ted-ed student talks':30,
+  'ted-ed student talks':31,
   'experimentos biotecnologicos em laboratorio':40,
-  'soft skills quest':40,
+  'soft skills quest':41,
   'a ciencia da felicidade':50,
-  'arquitetura da distincao':50
+  'arquitetura da distincao':51
 };
 function projectAudience(name){return PROJECT_AUDIENCE_MAP[norm(name)]||''}
 function projectSeriesOrder(name){return PROJECT_SERIES_ORDER[norm(name)]??99}
