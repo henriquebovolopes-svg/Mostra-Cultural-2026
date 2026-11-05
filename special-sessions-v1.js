@@ -165,16 +165,13 @@
     profile.appendChild(panel);
   };
 
-  var oldOpenRoom = openRoom;
-  openRoom = function (encoded,push) {
-    oldOpenRoom(encoded,push);
-    var loc = decodeURIComponent(encoded);
+  window.emRoomDecorator = function (loc) {
     var relevant = sessionRows.filter(function (s) {
       var room = s.location.replace(/^Sala\s+/i,'');
       return norm(room) === norm(loc) || norm(s.location) === norm(loc);
     });
     var host = document.getElementById('roomProgramPanel');
-    if (!host || !relevant.length) return;
+    if (!host || !relevant.length || host.querySelector('.emRoomSchedule')) return;
     var other = host.querySelector('.roomTimeSection:last-of-type');
     if (other && other.textContent.includes('Programação em atualização')) {
       var heading = other.querySelector('.roomTimeHead .lbl');
@@ -184,6 +181,12 @@
     section.className = 'emRoomSchedule';
     section.innerHTML = '<h2>Sessões com horários específicos</h2>' + relevant.map(function (s) { return sessionCard(s,true); }).join('');
     host.appendChild(section);
+  };
+
+  var oldOpenRoom = openRoom;
+  openRoom = function (encoded,push) {
+    oldOpenRoom(encoded,push);
+    window.emRoomDecorator(decodeURIComponent(encoded));
   };
 
   window.mostraSessionsCB = function (data) {
