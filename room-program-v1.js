@@ -74,6 +74,7 @@ openRoom=function(encoded,push=true){
   const result=$('roomResults');
   if(!result)return;
   result.innerHTML=`<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>${esc(label)}</h2><p>Veja tudo o que acontece neste espaço ao longo da Mostra.</p><div class="roomProgramMeta"><span>${total} trabalho${total===1?'':'s'}</span><span>14 de novembro</span><span>10h00–13h00</span></div><button class="roomDirectLink" onclick="copyRoomLink('${arg(room)}')">🔗 Copiar link direto desta sala</button></div>${roomTimeSection('Bloco 1',BLOCK_1,b1)}${roomTimeSection('Bloco 2',BLOCK_2,b2)}${roomTimeSection('Exposições permanentes','10h00–13h00',permanent,'permanent')}${other.length?roomTimeSection('Programação em atualização','Horário a confirmar',other):''}</div>`;
+  if(typeof window.emRoomDecorator==='function')window.emRoomDecorator(room);
   document.querySelectorAll('#roomButtons .room').forEach(btn=>btn.classList.toggle('on',norm(btn.dataset.room)===norm(room)));
   if(push){history.pushState({room},'',roomDirectUrl(room))}
   show('rooms');
