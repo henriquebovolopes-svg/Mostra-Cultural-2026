@@ -2,7 +2,7 @@
    Registro de parceiro externo, sem criar um estudante fictício na base. */
 const scStyle=document.createElement('link');
 scStyle.rel='stylesheet';
-scStyle.href='super-cerebro-v1.css?v=1';
+scStyle.href='super-cerebro-v1.css?v=2';
 document.head.appendChild(scStyle);
 
 const SC_ROOM='11';
@@ -11,7 +11,7 @@ const SC_BRIEF='O Super Cérebro apresenta uma proposta de aprendizagem que dese
 const SC_DESCRIPTION='A exposição convida as famílias a conhecer atividades que estimulam a concentração, a memória, a cooperação, o planejamento e a resolução de problemas.';
 
 function scRoomMarkup(){
-  return `<article class="scRoomCard">
+  return `<div id="roomProgramPanel" class="roomProgram scRoomProgram"><article class="scRoomCard">
     <div class="scCardHeader">
       <div class="scCardIdentity">
         <span class="scEyebrow">Sala 11 · Lab Maker</span>
@@ -28,7 +28,7 @@ function scRoomMarkup(){
       <div class="scTags" aria-label="Habilidades e atividades"><span>Jogos de estratégia</span><span>Soroban</span><span>Raciocínio lógico</span><span>Memória e concentração</span><span>Cooperação</span></div>
       <a class="scOfficial" href="https://supercerebro.com.br/quem-somos/" target="_blank" rel="noopener noreferrer">Conheça o método Super Cérebro ↗</a>
     </div>
-  </article>`;
+  </article></div>`;
 }
 
 function scAddRoomButton(){
@@ -46,12 +46,8 @@ function scAddRoomButton(){
   if(next)host.insertBefore(button,next);else host.appendChild(button);
 }
 function scGoRoom(){
-  show('rooms');
-  openRoom('11');
-  const url=new URL(location.href);
-  url.searchParams.delete('aluno');
-  url.searchParams.set('sala','11');
-  history.pushState({sala:'11'},'',url.pathname+url.search+url.hash);
+  // O próprio openRoom cuida da navegação, URL e rolagem até o programa.
+  openRoom(SC_ROOM,true);
 }
 
 const scBaseRenderRooms=renderRooms;
@@ -67,7 +63,10 @@ openRoom=function(encoded,push){
   if(room!=='11')return;
   scAddRoomButton();
   const host=document.getElementById('roomResults');
-  if(host)host.innerHTML=scRoomMarkup();
+  if(host){
+    host.innerHTML=scRoomMarkup();
+    host.setAttribute('aria-live','polite');
+  }
   document.querySelectorAll('#roomButtons .room').forEach(b=>b.classList.toggle('on',b.dataset.scRoom==='11'));
 };
 
