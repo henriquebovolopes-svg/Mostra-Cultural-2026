@@ -25,6 +25,8 @@ let roomDeepLinkApplied=false;
 function roomDisplayName(room){
   const s=String(room||'').trim();
   if(!s)return'Sala';
+  if(s==='12')return 'Sala 12 · Soft Skills e Hard Skills';
+  if(s==='15')return 'Sala 15 · Terras Raras (9º ano)';
   if(/^sala\s*/i.test(s))return s.replace(/^sala\s*/i,'Sala ');
   if(/^\d+$/.test(s))return `Sala ${s}`;
   return s;
@@ -54,7 +56,7 @@ async function copyRoomLink(encoded){
 }
 
 renderRooms=function(){
-  const rooms=uniqueValues('sala');
+  const rooms=uniqueValues('sala').filter(room=>norm(room)!=='14'); // Sala 14 fechada.
   $('roomButtons').innerHTML=rooms.length?rooms.map(r=>`<button class="room${norm(r)===norm(activeRoomProgram)?' on':''}" data-room="${esc(r)}" onclick="openRoom('${arg(r)}')" aria-label="Ver programação de ${esc(roomDisplayName(r))}">${esc(roomDisplayName(r))}</button>`).join(''):'<div class="empty">Salas ainda em definição.</div>';
   if(!roomDeepLinkApplied){
     const q=new URLSearchParams(location.search).get('sala');
@@ -65,6 +67,12 @@ renderRooms=function(){
 openRoom=function(encoded,push=true){
   const room=decodeURIComponent(encoded);
   activeRoomProgram=room;
+  if(norm(room)==='14'){
+    const result=$('roomResults');
+    if(result)result.innerHTML='<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Sala sem programação</div><h2>Sala 14 · Fechada</h2><p>Não haverá apresentações ou exposições nesta sala durante a Mostra Cultural.</p></div></div>';
+    show('rooms');
+    return;
+  }
   const roomRows=rows.filter(r=>norm(r.sala)===norm(room));
   const b1=roomScheduleProjects(room,r=>r.horario===BLOCK_1);
   const b2=roomScheduleProjects(room,r=>r.horario===BLOCK_2);
@@ -76,9 +84,10 @@ openRoom=function(encoded,push=true){
   const extraSections=extraTimes.map(time=>roomTimeSection('Apresentações',time,other.filter(p=>p.ref.horario===time))).join('');
   const total=new Set([...b1,...b2,...permanent,...other].map(p=>p.key)).size;
   const label=roomDisplayName(room);
+  const roomDescription=norm(room)==='12'?'Soft Skills Quest, TED-Ed Student Talks e Desenvolvimento de Aplicativos do 1º ano.':'Apresentações e exposições com horários confirmados.';
   const result=$('roomResults');
   if(!result)return;
-  result.innerHTML=`<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>${esc(label)}</h2><p>Apresentações e exposições com horários confirmados.</p><div class="roomProgramMeta"><span>${total} trabalho${total===1?'':'s'}</span><span>14 de novembro</span></div><button class="roomDirectLink" onclick="copyRoomLink('${arg(room)}')">🔗 Copiar link direto desta sala</button></div>${roomTimeSection('Bloco 1',BLOCK_1,b1)}${roomTimeSection('Bloco 2',BLOCK_2,b2)}${roomTimeSection('Exposição permanente','10h00–13h00',permanent,'permanent')}${extraSections}</div>`;
+  result.innerHTML=`<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>${esc(label)}</h2><p>${esc(roomDescription)}</p><div class="roomProgramMeta"><span>${total} trabalho${total===1?'':'s'}</span><span>14 de novembro</span></div><button class="roomDirectLink" onclick="copyRoomLink('${arg(room)}')">🔗 Copiar link direto desta sala</button></div>${roomTimeSection('Bloco 1',BLOCK_1,b1)}${roomTimeSection('Bloco 2',BLOCK_2,b2)}${roomTimeSection('Exposição permanente','10h00–13h00',permanent,'permanent')}${extraSections}</div>`;
   if(typeof window.emRoomDecorator==='function')window.emRoomDecorator(room);
   document.querySelectorAll('#roomButtons .room').forEach(btn=>btn.classList.toggle('on',norm(btn.dataset.room)===norm(room)));
   if(push){history.pushState({room},'',roomDirectUrl(room))}
