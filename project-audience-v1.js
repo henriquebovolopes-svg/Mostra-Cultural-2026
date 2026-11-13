@@ -41,7 +41,7 @@ renderExplore=function(){
 };
 
 const FAIR_MAPS={
-  1:{label:'1º Andar',src:'assets/maps/mapa-1-andar.webp?v=35',rooms:'Salas 12, 14, 15 e 16 • Maker • Coordenação • Laboratório de Química',alt:'Mapa do 1º andar da Mostra Cultural com Salas 12, 14, 15 e 16, Maker, Coordenação e Laboratório de Química'},
+  1:{label:'1º Andar',src:'assets/maps/mapa-1-andar.webp?v=35',rooms:'Salas 12, 15 e 16 • Sala 14 fechada • Maker • Coordenação • Laboratório de Química',alt:'Mapa do 1º andar da Mostra Cultural: Salas 12, 15 e 16 com apresentações e Sala 14 fechada, Maker, Coordenação e Laboratório de Química'},
   2:{label:'2º Andar',src:'assets/maps/mapa-2-andar.webp?v=35',rooms:'Salas 21, 22, 23, 24, 25 e 27',alt:'Mapa do 2º andar da Mostra Cultural com Salas 21, 22, 23, 24, 25 e 27'},
   3:{label:'3º Andar',src:'assets/maps/mapa-3-andar.webp?v=35',rooms:'Salas 31, 32, 33, 34, 35 e 37 • Coordenação • Banheiro',alt:'Mapa do 3º andar da Mostra Cultural com Salas 31, 32, 33, 34, 35 e 37, Coordenação e Banheiro'}
 };
