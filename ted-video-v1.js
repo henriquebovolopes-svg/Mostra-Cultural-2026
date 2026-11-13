@@ -65,13 +65,13 @@ function tedVideoIdForStudent(student){
   }
   return null;
 }
-function tedPlayer(id,name){
+function tedPlayer(id,name,workTitle){
   if(!/^[A-Za-z0-9_-]{11}$/.test(id))return null;
   const area=document.createElement('section');
   area.className='tedVideoArea';
   area.setAttribute('aria-label','Vídeo TED-Ed de '+name);
   const url='https://www.youtube.com/watch?v='+encodeURIComponent(id);
-  area.innerHTML=`<div class="tedVideoFrame"><iframe class="tedVideoIframe" src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0&playsinline=1" title="Apresentação TED-Ed de ${esc(name)}" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="tedVideoInfo"><div class="ey">TED-Ed Student Talks</div><h3>Assista à apresentação de ${esc(name)}</h3><a class="tedWatchLink" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir vídeo no YouTube ↗</a></div>`;
+  area.innerHTML=`<div class="tedVideoFrame"><iframe class="tedVideoIframe" src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0&playsinline=1" title="Apresentação TED-Ed de ${esc(name)}" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="tedVideoInfo"><div class="ey">TED-Ed Student Talks</div><h3>${esc(workTitle||'Assista à apresentação de '+name)}</h3><a class="tedWatchLink" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir vídeo no YouTube ↗</a></div>`;
   return area;
 }
 function tedChannelLink(){
@@ -97,7 +97,7 @@ openStudent=function(encoded,push=true){
   const id=tedVideoIdForStudent(student);
   if(!id)return; // Nenhum placeholder para estudantes que não apresentaram.
   const profile=document.getElementById('profileBody');
-  const video=tedPlayer(id,student.name);
+  const video=tedPlayer(id,student.name,student.works.find(isTedPresentation)?.titulo);
   if(!video||!profile)return;
   const hero=profile.querySelector('.profileHero');
   if(hero)hero.insertAdjacentElement('afterend',video);
@@ -111,7 +111,7 @@ openWork=function(encoded){
   const student=students.find(s=>norm(s.name)===norm(p.members[0]));
   const id=tedVideoIdForStudent(student);
   if(!id)return;
-  const area=document.getElementById('workBody'),player=tedPlayer(id,student.name);
+  const area=document.getElementById('workBody'),player=tedPlayer(id,student.name,student.works.find(isTedPresentation)?.titulo);
   if(!area||!player)return;
   const members=area.querySelector('.card.members');
   if(members)area.insertBefore(player,members);
