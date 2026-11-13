@@ -2,6 +2,8 @@ const SHEET_ID='1AexYGTpVBrdvxIHJWAgxP-g-f7ceEm9-1HQC-Fy7rmM';
 const SHEET='BASE OFICIAL';
 // Os seis estudantes abaixo não apresentaram talks; suas outras produções permanecem na Mostra.
 const TED_SEM_TALK=new Set(["ana luisa fernandes pereira","guilherme eduardo leme","jhony stojevic righi filho","julia dos santos","maria eduarda xavier sabariego alves","nicolas toret souza"]);
+// Arquivo histórico preservado na planilha, mas não faz parte da programação pública.
+const PROJETOS_NAO_APRESENTADOS=new Set(['experimentos biotecnologicos em laboratorio']);
 const descCss=document.createElement('link');descCss.rel='stylesheet';descCss.href='descriptions-v1.css';document.head.appendChild(descCss);
 const $=id=>document.getElementById(id);
 const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
@@ -9,7 +11,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const arg=s=>encodeURIComponent(String(s??'')).replace(/'/g,'%27');
 let rows=[],students=[],sheetScript,deferredPrompt=null,currentStudent=null,currentClass=null;
 function setStatus(text,error=false){const el=$('sync');el.className='status'+(error?' err':'');el.innerHTML=`<span>${esc(text)}</span><button onclick="loadLive()">Atualizar</button>`}
-window.mostraCB=data=>{try{rows=(data.table.rows||[]).map(r=>{const c=r.c||[],v=i=>c[i]&&c[i].v!=null?String(c[i].v):'';return{name:v(0),turma:v(1),prof:v(2),grupo:v(3),titulo:v(4),sala:v(5),horario:v(6),expo:v(7),status:v(9),descEixo:v(10),descTrabalho:v(11)}}).filter(r=>r.name && !(norm(r.turma)==='ted-ed student talks' && TED_SEM_TALK.has(norm(r.name))));if(!rows.length)throw new Error('empty');setStatus(`✓ Base oficial sincronizada • ${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`);prepare()}catch(e){console.error(e);setStatus('Não foi possível ler a base pública agora.',true)}};
+window.mostraCB=data=>{try{rows=(data.table.rows||[]).map(r=>{const c=r.c||[],v=i=>c[i]&&c[i].v!=null?String(c[i].v):'';return{name:v(0),turma:v(1),prof:v(2),grupo:v(3),titulo:v(4),sala:v(5),horario:v(6),expo:v(7),status:v(9),descEixo:v(10),descTrabalho:v(11)}}).filter(r=>r.name && !PROJETOS_NAO_APRESENTADOS.has(norm(r.turma)) && !PROJETOS_NAO_APRESENTADOS.has(norm(r.expo)) && !(norm(r.turma)==='ted-ed student talks' && TED_SEM_TALK.has(norm(r.name))));if(!rows.length)throw new Error('empty');setStatus(`✓ Base oficial sincronizada • ${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`);prepare()}catch(e){console.error(e);setStatus('Não foi possível ler a base pública agora.',true)}};
 function loadLive(){setStatus('Sincronizando com a BASE OFICIAL…');if(sheetScript)sheetScript.remove();sheetScript=document.createElement('script');sheetScript.src=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET)}&tqx=responseHandler:mostraCB&headers=1&tq=${encodeURIComponent('select A,B,C,D,E,F,G,H,I,J,K,L')}&_=${Date.now()}`;sheetScript.onerror=()=>setStatus('Não foi possível conectar à planilha.',true);document.body.appendChild(sheetScript)}
 function meaningful(r){return !!(r.titulo||r.grupo||r.sala||r.horario)}
 function priority(r){return (r.titulo&&r.sala&&r.horario?100:0)+(r.sala&&r.horario?40:0)+(r.titulo?20:0)+(r.grupo?8:0)+(r.sala?5:0)+(r.horario?5:0)}
