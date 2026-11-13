@@ -37,9 +37,11 @@ function roomProgramCard(p){
   return `<button class="scheduleWork projectBtn roomProgramCard" onclick="openWork('${arg(p.key)}')"><b>${esc(r.titulo||'Projeto em atualização')}</b>${r.descTrabalho?`<div class="scheduleDesc">${esc(r.descTrabalho)}</div>`:''}<div class="meta">${esc(context)}${r.grupo?`${context?' • ':''}${esc(r.grupo)}`:''}</div></button>`;
 }
 function roomScheduleList(projects){
-  return projects.length?`<div class="scheduleList">${projects.map(roomProgramCard).join('')}</div>`:'<div class="roomEmpty">Nenhuma atividade cadastrada neste horário para esta sala.</div>';
+  return projects.length?`<div class="scheduleList">${projects.map(roomProgramCard).join('')}</div>`:'';
 }
 function roomTimeSection(label,time,projects,kind=''){
+  // Se não existe apresentação, não mostramos o bloco/horário vazio.
+  if(!projects.length)return '';
   return `<section class="roomTimeSection ${kind}"><div class="roomTimeHead"><div><div class="lbl">${esc(label)}</div><h3>${esc(time)}</h3></div><span>${projects.length} trabalho${projects.length===1?'':'s'}</span></div>${roomScheduleList(projects)}</section>`;
 }
 function roomDirectUrl(room){
@@ -68,12 +70,15 @@ openRoom=function(encoded,push=true){
   const b2=roomScheduleProjects(room,r=>r.horario===BLOCK_2);
   const permanent=roomScheduleProjects(room,isPermanent);
   const scheduledKeys=new Set([...b1,...b2,...permanent].map(p=>p.key));
-  const other=groupProjects(roomRows).filter(p=>!scheduledKeys.has(p.key));
+  // Horários específicos futuros são agrupados pelo horário real; linhas sem horário não aparecem.
+  const other=groupProjects(roomRows).filter(p=>!scheduledKeys.has(p.key)&&String(p.ref.horario||'').trim());
+  const extraTimes=[...new Set(other.map(p=>p.ref.horario))].sort((a,b)=>String(a).localeCompare(String(b),'pt-BR'));
+  const extraSections=extraTimes.map(time=>roomTimeSection('Apresentações',time,other.filter(p=>p.ref.horario===time))).join('');
   const total=new Set([...b1,...b2,...permanent,...other].map(p=>p.key)).size;
   const label=roomDisplayName(room);
   const result=$('roomResults');
   if(!result)return;
-  result.innerHTML=`<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>${esc(label)}</h2><p>Veja tudo o que acontece neste espaço ao longo da Mostra.</p><div class="roomProgramMeta"><span>${total} trabalho${total===1?'':'s'}</span><span>14 de novembro</span><span>10h00–13h00</span></div><button class="roomDirectLink" onclick="copyRoomLink('${arg(room)}')">🔗 Copiar link direto desta sala</button></div>${roomTimeSection('Bloco 1',BLOCK_1,b1)}${roomTimeSection('Bloco 2',BLOCK_2,b2)}${roomTimeSection('Exposições permanentes','10h00–13h00',permanent,'permanent')}${other.length?roomTimeSection('Programação em atualização','Horário a confirmar',other):''}</div>`;
+  result.innerHTML=`<div id="roomProgramPanel" class="roomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>${esc(label)}</h2><p>Apresentações e exposições com horários confirmados.</p><div class="roomProgramMeta"><span>${total} trabalho${total===1?'':'s'}</span><span>14 de novembro</span></div><button class="roomDirectLink" onclick="copyRoomLink('${arg(room)}')">🔗 Copiar link direto desta sala</button></div>${roomTimeSection('Bloco 1',BLOCK_1,b1)}${roomTimeSection('Bloco 2',BLOCK_2,b2)}${roomTimeSection('Exposição permanente','10h00–13h00',permanent,'permanent')}${extraSections}</div>`;
   if(typeof window.emRoomDecorator==='function')window.emRoomDecorator(room);
   document.querySelectorAll('#roomButtons .room').forEach(btn=>btn.classList.toggle('on',norm(btn.dataset.room)===norm(room)));
   if(push){history.pushState({room},'',roomDirectUrl(room))}
