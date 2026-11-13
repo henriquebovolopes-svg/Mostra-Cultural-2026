@@ -42,7 +42,7 @@ function scAddRoomButton(){
   button.setAttribute('aria-label','Ver a exposição Super Cérebro na Sala 11, Lab Maker');
   button.addEventListener('click',()=>scGoRoom());
   const existing=[...host.querySelectorAll('.room')];
-  const next=existing.find(b=>{const m=b.textContent.match(/\\d+/);return m&&Number(m[0])>11});
+  const next=existing.find(b=>{const m=b.textContent.match(/\d+/);return m&&Number(m[0])>11});
   if(next)host.insertBefore(button,next);else host.appendChild(button);
 }
 function scGoRoom(){
@@ -121,3 +121,4 @@ prepare=function(){
   }
 };
 scAddHighlights();
+scAddRoomButton();
