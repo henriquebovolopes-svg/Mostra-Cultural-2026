@@ -11,7 +11,7 @@ const SC_BRIEF='O Super Cérebro apresenta uma proposta de aprendizagem que dese
 const SC_DESCRIPTION='A exposição convida as famílias a conhecer atividades que estimulam a concentração, a memória, a cooperação, o planejamento e a resolução de problemas.';
 
 function scRoomMarkup(){
-  return `<div id="roomProgramPanel" class="roomProgram scRoomProgram"><article class="scRoomCard">
+  return `<div id="roomProgramPanel" class="roomProgram scRoomProgram"><div class="roomProgramHero"><div class="ey">Programação da sala</div><h2>Sala 11 · Lab Maker</h2><p>Exposição de parceiro educacional do Colégio Stagio.</p><div class="roomProgramMeta"><span>1 exposição permanente</span><span>14 de novembro</span></div></div><article class="scRoomCard">
     <div class="scCardHeader">
       <div class="scCardIdentity">
         <span class="scEyebrow">Sala 11 · Lab Maker</span>
@@ -20,7 +20,7 @@ function scRoomMarkup(){
       </div>
       <div class="scLogoBox"><img src="${SC_LOGO}" alt="Logotipo do Super Cérebro" width="150" height="211" loading="eager"></div>
     </div>
-    <div class="scVisit"><span aria-hidden="true">◷</span> Exposição permanente · 14/11 · 10h às 13h</div>
+    <div class="scVisit"><span aria-hidden="true">◷</span> Exposição permanente · 10h00–13h00</div>
     <div class="scCardBody">
       <h3>Aprender é desenvolver novas maneiras de pensar</h3>
       <p>${SC_BRIEF}</p>
