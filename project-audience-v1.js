@@ -18,6 +18,7 @@ const PROJECT_AUDIENCE_MAP={
   'experimentos biotecnologicos em laboratorio':'2º ano do Ensino Médio',
   'soft skills quest':'2º ano do Ensino Médio',
   'a ciencia da felicidade':'Ensino Médio • Itinerário',
+  'a arte da ciencia da felicidade':'Ensino Médio • Itinerário',
   'arquitetura da distincao':'Ensino Médio • Itinerário'
 };
 const PROJECT_SERIES_ORDER={
@@ -28,6 +29,7 @@ const PROJECT_SERIES_ORDER={
   'experimentos biotecnologicos em laboratorio':40,
   'soft skills quest':41,
   'a ciencia da felicidade':50,
+  'a arte da ciencia da felicidade':50,
   'arquitetura da distincao':51
 };
 function projectAudience(name){return PROJECT_AUDIENCE_MAP[norm(name)]||''}
