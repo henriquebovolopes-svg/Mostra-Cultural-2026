@@ -56,7 +56,7 @@ function cleanProjectLanguage(){
 
 const FEATURED_PROJECTS=[
   {name:'Soft Skills Quest',icon:'🎮',description:'Projeto desenvolvido na disciplina Comunicação Assertiva e Trabalho em Equipe, com uma jornada gamificada de comunicação, colaboração, liderança, criatividade, tomada de decisão e pensamento crítico.',timing:'Exposição permanente • 10h00–13h00',kind:'permanent'},
-  {name:'TED-Ed Student Talks',icon:'🎤',description:'Projeto desenvolvido na disciplina Comunicação Efetiva, em que ideias autorais ganham forma por meio de pesquisa, escrita, narrativa, oralidade e apresentação pública.',timing:'Exposição permanente • 10h00–13h00',kind:'permanent'},
+  {name:'TED-Ed Student Talks',icon:'🎤',description:'Projeto desenvolvido na disciplina Comunicação Efetiva, em que ideias autorais ganham forma por meio de pesquisa, escrita, narrativa, oralidade e apresentação pública.',timing:'Sala 15 • exposição permanente • 10h00–13h00',kind:'permanent'},
   {name:'Objetivos de Desenvolvimento Sustentável',icon:'🌎',description:'Investigação dos Objetivos de Desenvolvimento Sustentável por meio de uma abordagem STEAM, articulando Ciência, Tecnologia, Engenharia, Artes e Matemática.',timing:'Apresentações por blocos',kind:'blocks'},
   {name:'Terras Raras',icon:'⚛️',description:'Investigação sobre extração, aplicações tecnológicas, impactos e sustentabilidade das terras raras por meio de uma abordagem STEAM.',timing:'Apresentações por blocos',kind:'blocks'},
   {name:'Arquitetura da Distinção',icon:'🏛️',description:'Projeto do itinerário de Humanidades e Linguagens que investiga como gostos, hábitos, cultura e linguagem constroem identidades, pertencimentos e diferenças sociais.',timing:'Apresentações por blocos',kind:'blocks'},
