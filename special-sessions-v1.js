@@ -199,6 +199,9 @@
           presenters:v(7),description:v(8),resources:v(9),link:v(10),notes:v(11),status:v(12) };
       }).filter(function (s) { return s.group && s.start; });
       sheetError = false;
+      // Disponibiliza as sessões para o carrossel de programação em andamento.
+      window.mostraEmLiveSessions = sessionRows.slice();
+      if(typeof window.refreshShowcaseNow === 'function')window.refreshShowcaseNow();
       renderEmSessions();
     } catch (err) {
       console.error('Erro ao ler sessões da Mostra:',err);
