@@ -36,7 +36,7 @@ function showcaseContext(){
     return {mode:'before',minutes:showcasePreviewBlock==='b1'?615:720,preview:true,
       status:'A Mostra começa às 10h',caption:'Prévia da programação de hoje'};
   }
-  if(n.date>SHOWCASE_DAY){
+  if(n.date>SHOWCASE_DAY || (n.date===SHOWCASE_DAY&&n.minutes>=780)){
     return {mode:'after',minutes:showcasePreviewBlock==='b1'?615:720,preview:true,
       status:'Mostra Cultural 2026',caption:'Reveja a programação do evento'};
   }
@@ -98,7 +98,7 @@ function showcaseGetCards(minutes){
     const match=String(room).match(/^(?:Sala\s+)?(\d{1,2})(?=\s|$)/i);
     return match?Number(match[1]):999; // O corredor aparece depois das salas numeradas.
   };
-  items.sort((a,b)=>numberOfRoom(a.room)-numberOfRoom(b.room)||
+  items.sort((a,b)=>Number(a.kind==='partner')-Number(b.kind==='partner')||numberOfRoom(a.room)-numberOfRoom(b.room)||
     String(a.category).localeCompare(String(b.category),'pt-BR')||
     String(a.title).localeCompare(String(b.title),'pt-BR'));
   return items;
