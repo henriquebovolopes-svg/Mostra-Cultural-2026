@@ -4,7 +4,6 @@
 const SHOWCASE_INTERVAL=15000;
 const SHOWCASE_DAY='2026-11-14';
 const SHOWCASE_ZONE='America/Sao_Paulo';
-let showcasePreviewBlock='b1';
 let showcaseCards=[];
 let showcasePosition=0;
 let showcaseCurrentKey='';
@@ -13,7 +12,7 @@ let showcaseTimer=null;
 
 const showcaseStyle=document.createElement('link');
 showcaseStyle.rel='stylesheet';
-showcaseStyle.href='showcase-now-v1.css?v=1';
+showcaseStyle.href='showcase-now-v1.css?v=2';
 document.head.appendChild(showcaseStyle);
 
 function showcaseClock(){
@@ -29,19 +28,13 @@ function showcaseClock(){
 function showcaseContext(){
   const n=showcaseClock();
   if(n.date===SHOWCASE_DAY && n.minutes>=600 && n.minutes<780){
-    return {mode:'live',minutes:n.minutes,clock:n.clock,preview:false,
-      status:'Acontecendo agora',caption:'Programação deste momento • 14 de novembro'};
+    return {mode:'live',minutes:n.minutes,clock:n.clock,preview:false};
   }
-  if(n.date===SHOWCASE_DAY&&n.minutes<600){
-    return {mode:'before',minutes:showcasePreviewBlock==='b1'?615:720,preview:true,
-      status:'A Mostra começa às 10h',caption:'Prévia da programação de hoje'};
+  // Antes do evento, mostre uma simulação única às 10h15, sem botões de bloco.
+  if(n.date<=SHOWCASE_DAY && (n.date!==SHOWCASE_DAY||n.minutes<600)){
+    return {mode:'preview',minutes:615,clock:'10h15',preview:true};
   }
-  if(n.date>SHOWCASE_DAY || (n.date===SHOWCASE_DAY&&n.minutes>=780)){
-    return {mode:'after',minutes:showcasePreviewBlock==='b1'?615:720,preview:true,
-      status:'Mostra Cultural 2026',caption:'Reveja a programação do evento'};
-  }
-  return {mode:'preview',minutes:showcasePreviewBlock==='b1'?615:720,preview:true,
-    status:'Prévia da Mostra',caption:'Veja como será a programação em tempo real'};
+  return {mode:'after',minutes:615,clock:'10h15',preview:true};
 }
 function showcaseMin(h){
   const m=/^(\d{1,2})h(\d{2})$/.exec(String(h||'').trim());
@@ -121,45 +114,36 @@ function showcaseRefresh(reset=false,step=0){
   const root=$('nowCard');if(!root)return;
   const context=showcaseContext();
   const list=showcaseGetCards(context.minutes);
-  const signature=list.map(c=>c.key).join('::')+'|'+context.mode+'|'+Math.floor(context.minutes/90);
+  const signature=list.map(item=>item.key).join('::')+'|'+context.mode;
   if(reset||signature!==showcasePoolSignature){
-    const prior=showcaseCurrentKey;
-    const found=list.findIndex(item=>item.key===prior);
+    const found=list.findIndex(item=>item.key===showcaseCurrentKey);
     showcasePosition=found>=0?found:(step>0?-1:0);
   }
   showcasePoolSignature=signature;
   showcaseCards=list;
-  if(list.length)showcasePosition=(showcasePosition+step+list.length)%list.length;
-  else showcasePosition=0;
+  showcasePosition=list.length?(showcasePosition+step+list.length)%list.length:0;
   const item=list[showcasePosition];
   showcaseCurrentKey=item?.key||'';
-  const stamp=context.preview
-    ?'Simulação de '+(showcasePreviewBlock==='b1'?'10h15':'12h00')
-    :'Agora, '+context.clock;
-  const buttons=context.preview?'<div class="sNowPreviewControls" role="group" aria-label="Simular horário da Mostra"><button type="button" class="'+(showcasePreviewBlock==='b1'?'selected':'')+'" aria-pressed="'+(showcasePreviewBlock==='b1')+'" onclick="showcaseChooseBlock(\'b1\')">10h15 · Bloco 1</button><button type="button" class="'+(showcasePreviewBlock==='b2'?'selected':'')+'" aria-pressed="'+(showcasePreviewBlock==='b2')+'" onclick="showcaseChooseBlock(\'b2\')">12h · Bloco 2</button></div>':'';
-  const card=item?'<article class="sNowItem" aria-label="Trabalho em destaque">'+
-    '<div class="sNowMeta"><span class="sNowSubject">'+esc(item.category)+'</span><span class="sNowCounter">'+(showcasePosition+1)+' de '+list.length+'</span></div>'+
+  const status=context.mode==='live'?'AO VIVO':context.mode==='after'?'PROGRAMAÇÃO':'PRÉVIA';
+  const label=context.mode==='after'?'Na Mostra, ':'Agora, ';
+  const studentSummary=item?.people.length
+    ?'<span class="sNowPeopleLabel">Alunos:</span> '+showcaseShortPeople(item.people)
+    :'<span class="sNowPeopleLabel">Parceiro:</span> Super Cérebro';
+  const group=item?.group
+    ?'<span class="sNowGroup">'+esc(showcaseContextLabel(item))+'</span>':'';
+  const content=item?'<button type="button" class="sNowEntry" onclick="showcaseOpenCurrent()" aria-label="Abrir detalhes de '+esc(item.title)+'">'+
+    '<div class="sNowWhere"><span class="sNowClock">'+esc(label)+'<strong>'+esc(context.clock)+'</strong></span><span class="sNowRoom">📍 '+esc(showcaseRoomName(item.room))+'</span></div>'+
     '<h3>'+esc(item.title)+'</h3>'+
-    '<div class="sNowGroup">'+esc(showcaseContextLabel(item))+'</div>'+
-    '<div class="sNowPeople"><span class="sNowLabel">'+(item.people.length===1?'Estudante':item.people.length?'Integrantes':'Participação')+'</span><div>'+showcaseShortPeople(item.people)+'</div></div>'+
-    '<div class="sNowPills"><span>📍 '+esc(showcaseRoomName(item.room))+'</span><span>◷ '+esc(item.time)+'</span></div>'+
-    (item.proposed?'<p class="sNowProposed">Horário previsto, sujeito a confirmação.</p>':'')+
-    '<button type="button" class="sNowDetails" onclick="showcaseOpenCurrent()">Ver trabalho e localização <span aria-hidden="true">→</span></button>'+
-    '</article>'
-    :'<div class="sNowEmpty">A programação para este horário ainda não foi disponibilizada. Consulte a aba de horários.</div>';
+    group+
+    '<p class="sNowPeople">'+studentSummary+'</p>'+
+    '<span class="sNowGo">Ver trabalho <span aria-hidden="true">→</span></span>'+
+    '</button>'
+    :'<div class="sNowEmpty">Consulte a programação completa da Mostra Cultural.</div>';
   root.classList.add('showcaseNow');
-  root.innerHTML='<div class="sNowHeader"><div><div class="sNowEy">Guia de visitação • 14 de novembro</div><h2>'+esc(context.status)+'</h2><p>'+esc(context.caption)+'</p></div><span class="sNowMode '+(context.preview?'preview':'live')+'">'+(context.preview?'PRÉVIA':'AO VIVO')+'</span></div>'+
-    '<div class="sNowTime"><span class="sNowDot" aria-hidden="true"></span><strong>'+esc(stamp)+'</strong><span>'+(context.preview?'Navegue pelos trabalhos previstos':'Atualização automática da programação')+'</span></div>'+
-    buttons+card+
-    '<div class="sNowNav"><button type="button" onclick="showcaseMove(-1)" aria-label="Mostrar trabalho anterior" '+(!list.length?'disabled':'')+'>←</button>'+
-    '<span>Um novo trabalho a cada 15 segundos</span>'+
-    '<button type="button" onclick="showcaseMove(1)" aria-label="Mostrar próximo trabalho" '+(!list.length?'disabled':'')+'>→</button></div>'+
+  root.innerHTML='<div class="sNowTop"><span>Guia de visitação</span><span class="sNowMode">'+status+'</span></div>'+
+    content+
+    '<div class="sNowFooter"><span>Próximo trabalho em 15 segundos</span><span>'+(list.length?(showcasePosition+1)+' / '+list.length:'')+'</span></div>'+
     '<div class="sNowProgress" aria-hidden="true"><span></span></div>';
-}
-function showcaseMove(delta){showcaseRefresh(false,delta);showcaseRestart()}
-function showcaseChooseBlock(block){
-  if(!['b1','b2'].includes(block))return;
-  showcasePreviewBlock=block;showcasePosition=0;showcaseCurrentKey='';showcaseRefresh(true,0);showcaseRestart();
 }
 function showcaseOpenCurrent(){
   const item=showcaseCards[showcasePosition];if(!item)return;
