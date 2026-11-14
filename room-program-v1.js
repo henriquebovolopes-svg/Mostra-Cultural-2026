@@ -25,8 +25,6 @@ let roomDeepLinkApplied=false;
 function roomDisplayName(room){
   const s=String(room||'').trim();
   if(!s)return'Sala';
-  if(s==='12')return 'Sala 12 · Soft Skills e Hard Skills';
-  if(s==='15')return 'Sala 15 · Terras Raras (9º ano)';
   if(/^sala\s*/i.test(s))return s.replace(/^sala\s*/i,'Sala ');
   if(/^\d+$/.test(s))return `Sala ${s}`;
   return s;
