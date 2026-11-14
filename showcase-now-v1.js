@@ -94,12 +94,13 @@ function showcaseSpecialExhibit(minutes){
 }
 function showcaseGetCards(minutes){
   const items=[...showcaseFromBase(minutes),...showcaseFromSessions(minutes),...showcaseSpecialExhibit(minutes)];
-  items.sort((a,b)=>{
-    const roomA=(String(a.room).match(/\d+/)||['999'])[0],roomB=(String(b.room).match(/\d+/)||['999'])[0];
-    return Number(roomA)-Number(roomB)||
-      String(a.category).localeCompare(String(b.category),'pt-BR')||
-      String(a.title).localeCompare(String(b.title),'pt-BR');
-  });
+  const numberOfRoom=room=>{
+    const match=String(room).match(/^(?:Sala\s+)?(\d{1,2})(?=\s|$)/i);
+    return match?Number(match[1]):999; // O corredor aparece depois das salas numeradas.
+  };
+  items.sort((a,b)=>numberOfRoom(a.room)-numberOfRoom(b.room)||
+    String(a.category).localeCompare(String(b.category),'pt-BR')||
+    String(a.title).localeCompare(String(b.title),'pt-BR'));
   return items;
 }
 function showcaseShortPeople(names){
@@ -123,7 +124,8 @@ function showcaseRefresh(reset=false,step=0){
   const signature=list.map(c=>c.key).join('::')+'|'+context.mode+'|'+Math.floor(context.minutes/90);
   if(reset||signature!==showcasePoolSignature){
     const prior=showcaseCurrentKey;
-    showcasePosition=Math.max(0,list.findIndex(item=>item.key===prior));
+    const found=list.findIndex(item=>item.key===prior);
+    showcasePosition=found>=0?found:(step>0?-1:0);
   }
   showcasePoolSignature=signature;
   showcaseCards=list;
