@@ -120,7 +120,7 @@ function showcaseRefresh(reset=false,step=0){
   const root=$('nowCard');if(!root)return;
   const context=showcaseContext();
   const list=showcaseGetCards(context.minutes);
-  const signature=list.map(c=>c.key).join('::')+'|'+context.mode+'|'+context.minutes/90|0;
+  const signature=list.map(c=>c.key).join('::')+'|'+context.mode+'|'+Math.floor(context.minutes/90);
   if(reset||signature!==showcasePoolSignature){
     const prior=showcaseCurrentKey;
     showcasePosition=Math.max(0,list.findIndex(item=>item.key===prior));
