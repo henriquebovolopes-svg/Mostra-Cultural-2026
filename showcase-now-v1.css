@@ -1,0 +1,41 @@
+/* Mostra Cultural 2026 · carrossel de atividades em andamento */
+#nowCard.showcaseNow{padding:0;margin:18px 16px 0;background:transparent;color:#163247;border-radius:21px;overflow:hidden;border:1px solid #cadee5;box-shadow:0 10px 28px rgba(0,60,105,.11)}
+.showcaseNow .sNowHeader{background:linear-gradient(122deg,#003c69 0%,#005e78 61%,#086e71 100%);color:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:19px 18px 17px}
+.showcaseNow .sNowHeader h2{margin:5px 0 2px;color:#fff;font-size:21px;line-height:1.15;letter-spacing:-.025em}
+.showcaseNow .sNowHeader p{margin:5px 0 0;font-size:12.5px;line-height:1.4;color:#d6f0f0}
+.showcaseNow .sNowEy{color:#c0e5b6;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:850}
+.showcaseNow .sNowMode{display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;padding:7px 9px;min-width:58px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.06em;background:#d9efdc;color:#2a6646}
+.showcaseNow .sNowMode.live{background:#fcefe7;color:#924a28}
+.showcaseNow .sNowTime{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#e9f3f4;border-bottom:1px solid #dce9e9;color:#135669;padding:12px 18px;font-size:12px}
+.showcaseNow .sNowTime strong{font-size:13px;font-weight:900}
+.showcaseNow .sNowTime>span:last-child{font-size:11px;color:#5c7280;line-height:1.35}
+.showcaseNow .sNowDot{display:inline-block;width:8px;height:8px;background:#389b69;border-radius:50%;box-shadow:0 0 0 3px #389b6920}
+.showcaseNow .sNowPreviewControls{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#f8fafb;padding:11px 13px 0}
+.showcaseNow .sNowPreviewControls button{border:1px solid #d2e3e9;border-radius:11px;color:#496a7b;font-size:11px;font-weight:850;padding:9px 5px;background:#fff}
+.showcaseNow .sNowPreviewControls button.selected{background:#e2f3e6;color:#22704c;border-color:#a7d7bb}
+.showcaseNow .sNowItem{background:#fff;padding:18px 18px 14px;min-height:252px}
+.showcaseNow .sNowMeta{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}
+.showcaseNow .sNowSubject{color:#147056;font-size:10.5px;font-weight:900;letter-spacing:.02em;line-height:1.3}
+.showcaseNow .sNowCounter{font-size:11px;white-space:nowrap;color:#738696;font-weight:850}
+.showcaseNow .sNowItem h3{margin:0 0 8px;font-size:20px;line-height:1.22;letter-spacing:-.025em;color:#003c69}
+.showcaseNow .sNowGroup{display:inline-block;color:#466579;font-size:11px;line-height:1.3;font-weight:850;margin-bottom:13px}
+.showcaseNow .sNowPeople{padding:11px 12px;background:#f3f8f8;border:1px solid #e4edee;border-radius:12px;color:#294a5b;font-size:12px;line-height:1.55}
+.showcaseNow .sNowLabel{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#61808a;font-weight:900;margin-bottom:3px}
+.showcaseNow .sNowExtra{color:#328259;display:inline;font-weight:850}
+.showcaseNow .sNowPills{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.showcaseNow .sNowPills span{border-radius:999px;background:#edf4f7;color:#225d74;font-size:11px;font-weight:850;padding:7px 10px;line-height:1.3}
+.showcaseNow .sNowPills span:first-child{background:#e2f2e8;color:#246b4c}
+.showcaseNow .sNowProposed{font-size:11px;color:#806836;line-height:1.4;margin:9px 0}
+.showcaseNow .sNowDetails{border:0;padding:9px 0 2px;background:transparent;text-align:left;color:#006489;font-size:12px;font-weight:900}
+.showcaseNow .sNowDetails span{display:inline-block;margin-left:4px}
+.showcaseNow .sNowNav{display:flex;justify-content:space-between;gap:7px;align-items:center;padding:12px 14px 10px;background:#f5f8fa;border-top:1px solid #e4ecef}
+.showcaseNow .sNowNav button{width:33px;height:33px;flex:none;border-radius:11px;background:#fff;border:1px solid #ccdde5;color:#003c69;font-size:19px;font-weight:800}
+.showcaseNow .sNowNav button:disabled{opacity:.5}
+.showcaseNow .sNowNav span{color:#547081;font-size:10.5px;text-align:center;line-height:1.35;font-weight:750}
+.showcaseNow .sNowProgress{height:3px;background:#e2eaf0;overflow:hidden}
+.showcaseNow .sNowProgress span{display:block;height:100%;width:100%;transform-origin:left;background:linear-gradient(90deg,#6ebb86,#006283);animation:sNowFill 15s linear forwards}
+.showcaseNow .sNowEmpty{background:#fff;padding:22px 18px;font-size:13px;line-height:1.5;color:#506775}
+@keyframes sNowFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(min-width:640px){#nowCard.showcaseNow{margin-left:22px;margin-right:22px}.showcaseNow .sNowHeader{padding:23px 24px 20px}.showcaseNow .sNowItem{padding:23px 24px 20px}.showcaseNow .sNowItem h3{font-size:23px}.showcaseNow .sNowTime{padding-left:24px;padding-right:24px}.showcaseNow .sNowPreviewControls{padding:13px 19px 0}}
+@media(max-width:375px){.showcaseNow .sNowHeader{padding:17px 13px}.showcaseNow .sNowItem{padding:17px 13px}.showcaseNow .sNowItem h3{font-size:18px}.showcaseNow .sNowTime{padding:11px 13px}.showcaseNow .sNowNav{padding:11px}.showcaseNow .sNowNav span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.showcaseNow .sNowProgress span{animation:none;transform:scaleX(1)}}
